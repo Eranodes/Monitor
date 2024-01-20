@@ -65,7 +65,7 @@ p {
 /* Media query for phones */
 @media only screen and (max-width: 480px) {
     .history-bar {
-        width: calc(100% / 20 - 5px); /* Calculate the width to fit 20 bars in one row */
-        margin-right: 1px; /* Adjusted margin for better spacing */
+        width: calc(100% / 20 - 3px); /* Adjusted width to fit 20 bars in one row with 4px spacing */
+        margin-right: 4px; /* Adjusted margin for better spacing */
     }
 }
