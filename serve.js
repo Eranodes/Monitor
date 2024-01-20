@@ -26,10 +26,15 @@ const discordWebhookUrl = process.env.DISCORD_WEBHOOK;
 
 const sendDiscordNotification = (websiteName, status) => {
   if (discordWebhookUrl) {
-    const message = `Website Status Update\n${websiteName}: ${status}`;
-    
+    const embed = {
+      title: 'Website Status Update',
+      description: `${websiteName}: ${status}`,
+      color: status === 'UP' ? 0x00ff00 : 0xff0000, // Green for UP, Red for DOWN
+      timestamp: new Date().toISOString(),
+    };
+
     axios.post(discordWebhookUrl, {
-      content: message,
+      embeds: [embed],
     })
     .then(() => {
       console.log('Discord notification sent successfully.');
@@ -39,6 +44,7 @@ const sendDiscordNotification = (websiteName, status) => {
     });
   }
 };
+
 
 const checkWebsiteStatus = async (websiteUrl, websiteName) => {
   try {
