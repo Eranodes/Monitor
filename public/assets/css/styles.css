@@ -2,102 +2,64 @@ body {
     font-family: Arial, sans-serif;
     margin: 10px;
     padding: 20px;
-    background-color: #1a1a1a; /* Very dark grey background */
-    color: #fff; /* Text color */
+    background-color: #1a1a1a;
+    color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  }
-  
-  h1 {
+}
+
+h1 {
     text-align: center;
     color: #fff;
-  }
-  
-  /* Header styling */
-  header {
-    background-color: #000; /* Black header background */
+}
+
+header {
+    background-color: #000;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
-  }
-  
-  /* Footer styling */
-  footer {
-    background-color: #000; /* Black footer background */
+}
+
+footer {
+    background-color: #000;
     padding: 10px;
     text-align: center;
     margin-top: 20px;
     border-radius: 5px;
-  }
-  
-  .status-section {
+}
+
+.status-section {
     margin-bottom: 30px;
-    background-color: #333; /* Dark grey background for status sections */
+    background-color: #333;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  h2 {
+    display: flex;
+    flex-direction: column; /* Updated to column layout */
+    align-items: center; /* Center align items vertically */
+    justify-content: space-between;
+}
+
+h2 {
     color: #fff;
     margin-bottom: 10px;
-  }
-  
-  p {
+}
+
+p {
     margin: 0;
-  }
-  
-  #main-status, #dashboard-status, #panel-status {
-    font-weight: bold;
-    font-size: 18px;
-    color: #fff; /* Text color for status */
-    margin-bottom: 10px;
-  }
-  
-  #main-status.offline, #dashboard-status.offline, #panel-status.offline {
-    color: #dc3545; /* Text color for offline status */
-  }
-  
-  /* Streaked designs for the body background */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(45deg, #000, #000 10px, #1a1a1a 10px, #1a1a1a 20px);
-    opacity: 0.1; /* Adjust the opacity based on your preference */
-    pointer-events: none;
-  }
-  
-  /* Footer Text Styles */
-  footer p {
-    margin: 5px 0;
-  }
-  
-  /* Additional Styling for Status Sections */
-  .status-section p {
-    line-height: 1.6;
-  }
-  
-  /* Additional styles for history containers */
-  .history-container {
+}
+
+.history-container {
     display: flex;
     align-items: center;
     margin-top: 10px;
     min-height: 40px; /* Adjust the min-height as needed */
-  }
-  
-  .history-bar {
+    justify-content: space-between;
+}
+
+.history-bar {
     width: 15px;
     height: 30px;
     margin-right: 5px;
     border-radius: 4px;
-  }
-  
-  /* Additional styling for Status Sections */
-  .status-section p {
-    line-height: 1.6;
-  }
-  
+}

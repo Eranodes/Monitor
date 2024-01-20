@@ -2,3 +2,8 @@
 sites.log
 public/assets/status.json
 .vscode/sftp.json
+.npm
+.github
+node_modules
+.vscode/*
+package-lock.json
