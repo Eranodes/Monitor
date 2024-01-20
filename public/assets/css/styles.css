@@ -1,3 +1,9 @@
+/* Reset default margin and padding */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 10px;
@@ -43,16 +49,23 @@ p {
 
 .history-container {
     display: flex;
-    flex-wrap: wrap; /* Enable wrapping for better responsiveness */
     align-items: center;
     margin: 10px; /* Add margin for better spacing */
     min-height: 40px;
     justify-content: space-between;
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
 }
 
 .history-bar {
-    width: 15px;
     height: 30px;
     margin-right: 5px;
     border-radius: 4px;
+}
+
+/* Media query for phones */
+@media only screen and (max-width: 480px) {
+    .history-bar {
+        width: calc(100% / 20 - 5px); /* Calculate the width to fit 20 bars in one row */
+        margin-right: 1px; /* Adjusted margin for better spacing */
+    }
 }
