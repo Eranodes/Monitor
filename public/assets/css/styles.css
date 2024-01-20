@@ -23,16 +23,16 @@ header, footer {
     background-color: #000;
     padding: 10px;
     border-radius: 5px;
-    margin: 0 10px; /* Add margin to headers and footers for better spacing */
+    margin: 0 10px;
 }
 
 footer {
     text-align: center;
-    margin: 20px 10px; /* Adjusted margin for better spacing */
+    margin: 20px 10px;
 }
 
 .status-section {
-    margin: 10px; /* Add margin to status section for better spacing */
+    margin: 10px;
     background-color: #333;
     padding: 20px;
     border-radius: 8px;
@@ -50,10 +50,10 @@ p {
 .history-container {
     display: flex;
     align-items: center;
-    margin: 10px; /* Add margin for better spacing */
+    margin: 10px;
     min-height: 40px;
     justify-content: space-between;
-    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+    overflow-x: auto;
 }
 
 .history-bar {
@@ -65,7 +65,7 @@ p {
 /* Media query for phones */
 @media only screen and (max-width: 480px) {
     .history-bar {
-        width: calc(100% / 20 - 3px); /* Adjusted width to fit 20 bars in one row with 4px spacing */
-        margin-right: 4px; /* Adjusted margin for better spacing */
+        width: calc(100% / 20 - 3px); 
+        margin-right: 4px;
     }
 }
