@@ -673,5 +673,20 @@
     "website": "Panel Website",
     "timestamp": "2024-01-20T08:45:15.130Z",
     "status": "DOWN"
+  },
+  {
+    "website": "Main Website",
+    "timestamp": "2024-01-20T08:46:14.013Z",
+    "status": "UP"
+  },
+  {
+    "website": "Dashboard Website",
+    "timestamp": "2024-01-20T08:46:15.144Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Panel Website",
+    "timestamp": "2024-01-20T08:46:16.006Z",
+    "status": "DOWN"
   }
 ]
