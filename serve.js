@@ -32,6 +32,9 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
         console.error('Error appending to sites.log:', err);
       }
     });
+
+    // Log status to status.json
+    logStatus(websiteName, status);
   } catch (error) {
     // Append full response details to sites.log for offline case
     const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is DOWN. Error: ${error.message}\n`;
@@ -40,16 +43,61 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
         console.error('Error appending to sites.log:', err);
       }
     });
+
+    // Log status to status.json
+    logStatus(websiteName, 'DOWN');
   }
 };
 
-// Check the status of each website
+const logStatus = (websiteName, status) => {
+  const statusEntry = {
+    timestamp: new Date().toISOString(),
+    status: status,
+  };
+
+  // Read existing status.json file
+  const statusFilePath = path.join(__dirname, 'public', 'assets', 'status.json');
+  let statusData = [];
+
+  try {
+    const existingStatus = fs.readFileSync(statusFilePath, 'utf8');
+    statusData = JSON.parse(existingStatus);
+  } catch (error) {
+    // File doesn't exist or is empty
+  }
+
+  // Add new status entry
+  statusData.push({
+    website: websiteName,
+    ...statusEntry,
+  });
+
+  // Write updated status.json file
+  fs.writeFileSync(statusFilePath, JSON.stringify(statusData, null, 2), 'utf8');
+};
+
+// Check the status of each website on startup
+const checkStatusOnStartup = async () => {
+  for (const website of websites) {
+    await checkWebsiteStatus(website.url, website.name);
+  }
+};
+
+// Schedule periodic status checks (every 1 minute)
+setInterval(async () => {
+  for (const website of websites) {
+    await checkWebsiteStatus(website.url, website.name);
+  }
+}, 60000); // 1 minute in milliseconds
+
+// Define the list of websites
 const websites = [
   { url: process.env.MAIN_WEBSITE, name: 'Main Website' },
   { url: process.env.DASHBOARD_WEBSITE, name: 'Dashboard Website' },
   { url: process.env.PANEL_WEBSITE, name: 'Panel Website' },
 ];
 
+// Status endpoint for immediate status check
 app.get('/status', async (req, res) => {
   const statusArray = [];
 
@@ -67,6 +115,9 @@ app.get('/status', async (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port}`);
+  
+  // Check website status on startup
+  await checkStatusOnStartup();
 });

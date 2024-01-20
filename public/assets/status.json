@@ -1,0 +1,62 @@
+[
+  {
+    "website": "Main Website",
+    "timestamp": "2024-01-20T12:30:45.123Z",
+    "status": "UP"
+  },
+  {
+    "website": "Dashboard Website",
+    "timestamp": "2024-01-20T12:31:15.456Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Panel Website",
+    "timestamp": "2024-01-20T12:32:00.789Z",
+    "status": "UP"
+  },
+  {
+    "website": "Main Website",
+    "timestamp": "2024-01-20T08:03:53.156Z",
+    "status": "UP"
+  },
+  {
+    "website": "Dashboard Website",
+    "timestamp": "2024-01-20T08:03:53.949Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Panel Website",
+    "timestamp": "2024-01-20T08:03:56.344Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Main Website",
+    "timestamp": "2024-01-20T08:04:53.439Z",
+    "status": "UP"
+  },
+  {
+    "website": "Dashboard Website",
+    "timestamp": "2024-01-20T08:04:54.251Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Panel Website",
+    "timestamp": "2024-01-20T08:04:56.339Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Main Website",
+    "timestamp": "2024-01-20T08:05:53.082Z",
+    "status": "UP"
+  },
+  {
+    "website": "Dashboard Website",
+    "timestamp": "2024-01-20T08:05:53.865Z",
+    "status": "DOWN"
+  },
+  {
+    "website": "Panel Website",
+    "timestamp": "2024-01-20T08:05:56.814Z",
+    "status": "DOWN"
+  }
+]
