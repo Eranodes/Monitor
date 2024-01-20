@@ -2,57 +2,66 @@
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    margin: 10px;
+    padding: 20px;
     background-color: #1a1a1a; /* Very dark grey background */
     color: #fff; /* Text color */
-  }
-  
-  h1 {
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
     text-align: center;
     color: #fff;
-  }
-  
-  /* Header styling */
-  header {
+}
+
+/* Header styling */
+header {
     background-color: #000; /* Black header background */
     padding: 10px;
-  }
-  
-  /* Footer styling */
-  footer {
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Footer styling */
+footer {
     background-color: #000; /* Black footer background */
     padding: 10px;
-  }
-  
-  .status-section {
-    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.status-section {
+    margin-bottom: 30px;
     background-color: #333; /* Dark grey background for status sections */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  h2 {
+}
+
+h2 {
     color: #fff;
-  }
-  
-  p {
+    margin-bottom: 10px;
+}
+
+p {
     margin: 0;
-  }
-  
-  #main-status, #dashboard-status, #panel-status {
+}
+
+#main-status, #dashboard-status, #panel-status {
     font-weight: bold;
     font-size: 18px;
     color: #fff; /* Text color for status */
-  }
-  
-  #main-status.offline, #dashboard-status.offline, #panel-status.offline {
+    margin-bottom: 10px;
+}
+
+#main-status.offline, #dashboard-status.offline, #panel-status.offline {
     color: #dc3545; /* Text color for offline status */
-  }
-  
-  /* Streaked designs for the body background */
-  body::before {
+}
+
+/* Streaked designs for the body background */
+body::before {
     content: '';
     position: fixed;
     top: 0;
@@ -62,5 +71,14 @@ body {
     background: repeating-linear-gradient(45deg, #000, #000 10px, #1a1a1a 10px, #1a1a1a 20px);
     opacity: 0.1; /* Adjust the opacity based on your preference */
     pointer-events: none;
-  }
-  
+}
+
+/* Footer Text Styles */
+footer p {
+    margin: 5px 0;
+}
+
+/* Additional Styling for Status Sections */
+.status-section p {
+    line-height: 1.6;
+}
