@@ -1,6 +1,0 @@
-    <!-- Basic Tags -->
-    <meta property="og:title" content="ActivNodes | Status">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://media.discordapp.net/attachments/1198216146659319939/1198216497143762944/activnodeswhite.png?ex=65be1912&is=65aba412&hm=83ae8dbdb6eb1cf8cb1cb602bbb8d1fa9e754906601b59d45b85dce1962e7c5b&=&format=webp&quality=lossless&width=586&height=601">
-    <meta property="og:url" content="https://status.activnodes.me">
-    <meta property="og:description" content="ActivNodes Status Page">
