@@ -1,8 +1,10 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config();
+const dotenv = require('dotenv');
 const axios = require('axios');
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,6 +22,24 @@ const axiosInstance = axios.create({
   },
 });
 
+const discordWebhookUrl = process.env.DISCORD_WEBHOOK;
+
+const sendDiscordNotification = (websiteName, status) => {
+  if (discordWebhookUrl) {
+    const message = `Website Status Update\n${websiteName}: ${status}`;
+    
+    axios.post(discordWebhookUrl, {
+      content: message,
+    })
+    .then(() => {
+      console.log('Discord notification sent successfully.');
+    })
+    .catch((error) => {
+      console.error('Error sending Discord notification:', error.message);
+    });
+  }
+};
+
 const checkWebsiteStatus = async (websiteUrl, websiteName) => {
   try {
     const response = await axiosInstance.get(`http://${websiteUrl}`);
@@ -35,6 +55,9 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
 
     // Log status to status.json
     logStatus(websiteName, status);
+
+    // Send Discord notification
+    sendDiscordNotification(websiteName, status);
   } catch (error) {
     // Append full response details to sites.log for offline case
     const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is DOWN. Error: ${error.message}\n`;
@@ -46,6 +69,9 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
 
     // Log status to status.json
     logStatus(websiteName, 'DOWN');
+
+    // Send Discord notification for DOWN status
+    sendDiscordNotification(websiteName, 'DOWN');
   }
 };
 
@@ -55,7 +81,6 @@ const logStatus = (websiteName, status) => {
     status: status,
   };
 
-  // Read existing status.json file
   const statusFilePath = path.join(__dirname, 'public', 'assets', 'status.json');
   let statusData = [];
 
@@ -66,13 +91,11 @@ const logStatus = (websiteName, status) => {
     // File doesn't exist or is empty
   }
 
-  // Add new status entry
   statusData.push({
     website: websiteName,
     ...statusEntry,
   });
 
-  // Write updated status.json file
   fs.writeFileSync(statusFilePath, JSON.stringify(statusData, null, 2), 'utf8');
 };
 
@@ -83,21 +106,19 @@ const checkStatusOnStartup = async () => {
   }
 };
 
-// Schedule periodic status checks (every 1 minute)
+// Schedule periodic status checks (every 5 minutes)
 setInterval(async () => {
   for (const website of websites) {
     await checkWebsiteStatus(website.url, website.name);
   }
-}, 60000); // 1 minute in milliseconds
+}, 300000); // 5 minutes in milliseconds
 
-// Define the list of websites
 const websites = [
   { url: process.env.MAIN_WEBSITE, name: 'Main Website' },
   { url: process.env.DASHBOARD_WEBSITE, name: 'Dashboard Website' },
   { url: process.env.PANEL_WEBSITE, name: 'Panel Website' },
 ];
 
-// Status endpoint for immediate status check
 app.get('/status', async (req, res) => {
   const statusArray = [];
 
@@ -114,7 +135,6 @@ app.get('/status', async (req, res) => {
   res.json(statusArray);
 });
 
-// Start the server
 app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port}`);
   
