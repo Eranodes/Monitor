@@ -12,26 +12,26 @@
 <div id="status-container"></div>
 
 <script>
-  async function fetchStatus() {
-    const response = await fetch('/status');
-    const statusArray = await response.json();
-
-    const statusContainer = document.getElementById('status-container');
-    statusContainer.innerHTML = '';
-
-    statusArray.forEach(({ name, status }) => {
-      const statusElement = document.createElement('p');
-      statusElement.textContent = `${name}: ${status}`;
-      statusContainer.appendChild(statusElement);
-    });
-  }
-
-  // Fetch status on page load
-  fetchStatus();
-
-  // Fetch status every 5 seconds
-  setInterval(fetchStatus, 5000);
-</script>
+    async function fetchStatus() {
+      const response = await fetch('/status');
+      const statusArray = await response.json();
+  
+      const statusContainer = document.getElementById('status-container');
+      statusContainer.innerHTML = '';
+  
+      statusArray.forEach(({ name, status }) => {
+        const statusElement = document.createElement('p');
+        statusElement.textContent = `${name}: ${status}`;
+        statusContainer.appendChild(statusElement);
+      });
+    }
+  
+    // Fetch status on page load
+    fetchStatus();
+  
+    // Fetch status every 30 seconds
+    setInterval(fetchStatus, 30000);  // 30 seconds in milliseconds
+</script>  
 
 </body>
 </html>
