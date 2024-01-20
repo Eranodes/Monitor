@@ -1,5 +1,4 @@
 async function fetchStatus() {
-    // Corrected path to status.json
     const response = await fetch('/assets/status.json');
     const historyArray = await response.json();
   
@@ -47,7 +46,6 @@ async function fetchStatus() {
   // Fetch status every 1 minute
   setInterval(fetchStatus, 60000);
   
-  // Additional styles for the history bars
   const style = document.createElement('style');
   style.innerHTML = `
     .history-bar {
