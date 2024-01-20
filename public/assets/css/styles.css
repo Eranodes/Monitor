@@ -8,28 +8,25 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     color: #fff;
 }
 
-header {
+header, footer {
     background-color: #000;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin: 0 10px; /* Add margin to headers and footers for better spacing */
 }
 
 footer {
-    background-color: #000;
-    padding: 10px;
     text-align: center;
-    margin-top: 20px;
-    border-radius: 5px;
+    margin: 20px 10px; /* Adjusted margin for better spacing */
 }
 
 .status-section {
-    margin-bottom: 30px;
+    margin: 10px; /* Add margin to status section for better spacing */
     background-color: #333;
     padding: 20px;
     border-radius: 8px;
@@ -40,19 +37,15 @@ footer {
     justify-content: space-between;
 }
 
-h2 {
-    color: #fff;
-    margin-bottom: 10px;
-}
-
 p {
     margin: 0;
 }
 
 .history-container {
     display: flex;
+    flex-wrap: wrap; /* Enable wrapping for better responsiveness */
     align-items: center;
-    margin-top: 10px;
+    margin: 10px; /* Add margin for better spacing */
     min-height: 40px;
     justify-content: space-between;
 }
