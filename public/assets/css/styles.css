@@ -1,0 +1,66 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; /* Very dark grey background */
+    color: #fff; /* Text color */
+  }
+  
+  h1 {
+    text-align: center;
+    color: #fff;
+  }
+  
+  /* Header styling */
+  header {
+    background-color: #000; /* Black header background */
+    padding: 10px;
+  }
+  
+  /* Footer styling */
+  footer {
+    background-color: #000; /* Black footer background */
+    padding: 10px;
+  }
+  
+  .status-section {
+    margin-bottom: 20px;
+    background-color: #333; /* Dark grey background for status sections */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  h2 {
+    color: #fff;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  #main-status, #dashboard-status, #panel-status {
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff; /* Text color for status */
+  }
+  
+  #main-status.offline, #dashboard-status.offline, #panel-status.offline {
+    color: #dc3545; /* Text color for offline status */
+  }
+  
+  /* Streaked designs for the body background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, #000, #000 10px, #1a1a1a 10px, #1a1a1a 20px);
+    opacity: 0.1; /* Adjust the opacity based on your preference */
+    pointer-events: none;
+  }
+  

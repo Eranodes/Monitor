@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Website Status</title>
   <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1191809697318187008/1196485178378436638/logo.png?ex=65b7cca8&is=65a557a8&hm=6dfe467eab9b75b54ae5b741b766a290f1043006a3f8d4a635c4dfe7f0ab2ce9" />
-  <style>
-    .status-section {
-      margin-bottom: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
@@ -33,30 +29,6 @@
   <p id="panel-status">Loading...</p>
 </div>
 
-<script>
-  async function fetchStatus() {
-    const response = await fetch('/status');
-    const statusArray = await response.json();
-
-    updateStatus('main', statusArray.find(server => server.name === 'Main Website').status === 'UP');
-    updateStatus('dashboard', statusArray.find(server => server.name === 'Dashboard Website').status === 'UP');
-    updateStatus('panel', statusArray.find(server => server.name === 'Panel Website').status === 'UP');
-  }
-
-  function updateStatus(serverName, isOnline) {
-    const statusElement = document.getElementById(`${serverName}-status`);
-    if (statusElement) {
-      statusElement.textContent = isOnline ? 'Online' : 'Offline';
-      statusElement.style.color = isOnline ? 'green' : 'red';
-    }
-  }
-
-  // Fetch status on page load
-  fetchStatus();
-
-  // Fetch status every 30 seconds
-  setInterval(fetchStatus, 30000);  // 30 seconds in milliseconds
-</script>
-
+<script src="assets/js/script.js"></script>
 </body>
 </html>
