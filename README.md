@@ -1,6 +1,6 @@
 # Activnodes Monitor
 
-![Activnodes Monitor Logo](https://media.discordapp.net/attachments/1198216146659319939/1198216497143762944/activnodeswhite.png?ex=65be1912&is=65aba412&hm=83ae8dbdb6eb1cf8cb1cb602bbb8d1fa9e754906601b59d45b85dce1962e7c5b&=&format=webp&quality=lossless&width=586&height=601)
+![Activnodes Monitor Logo](https://media.discordapp.net/attachments/1198216146659319939/1198216497143762944/activnodeswhite.png?ex=65be1912&is=65aba412&hm=83ae8dbdb6eb1cf8cb1cb602bbb8d1fa9e754906601b59d45b85dce1962e7c5b&=&format=webp&quality=lossless&width=100&height=100)
 
 ## Introduction
 Welcome to Activnodes Monitor, a cutting-edge monitoring solution developed by G9 Aerospace. Activnodes Monitor is designed to provide a robust platform for monitoring and managing Activnodes. By offering real-time insights into the status and performance of Activnodes, this tool aims to enhance the efficiency and reliability of the Activnodes hosting systems.
