@@ -19,6 +19,37 @@ h1, h2 {
     color: #fff;
 }
 
+/* Apply a box model to the navigation */
+nav {
+    background-color: #333; /* Background color for the navigation */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    padding: 10px;
+}
+
+/* Style the unordered list within the navigation */
+nav ul {
+    list-style: none; /* Remove default list styles */
+}
+
+/* Style the list items within the navigation */
+nav li {
+    display: inline-block; /* Arrange list items horizontally */
+    margin-right: 20px; /* Add spacing between list items */
+}
+
+/* Style the anchor links within the navigation */
+nav a {
+    text-decoration: none; /* Remove default underline */
+    color: #fff; /* Text color for links */
+    font-weight: bold; /* Apply a bold font weight */
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+/* Change link color on hover */
+nav a:hover {
+    color: #00bcd4; /* Change color on hover */
+}
+
 header, footer {
     background-color: #000;
     padding: 10px;
