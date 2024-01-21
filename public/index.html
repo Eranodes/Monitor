@@ -27,13 +27,25 @@
   <!-- Specify color -->
   <meta name="theme-color" content="#4285f4">
 
+  <script>
+    function includeHTML(filePath, targetId) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById(targetId).innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", filePath, true);
+      xhttp.send();
+    }
+  </script>
 </head>
 <body>
 
-<!-- Import Header -->
-<script src="assets/js/include.js"></script>
+<!-- Include Header -->
+<div id="header-container"></div>
 <script>
-  includeHTML("assets/common/header.html");
+  includeHTML("assets/common/header.html", "header-container");
 </script>
 
 <!-- Main Website Status Section -->
@@ -57,9 +69,10 @@
   <div class="history-container" id="panel-history"></div>
 </div>
 
-<!-- Import Footer -->
+<!-- Include Header -->
+<div id="footer-container"></div>
 <script>
-  includeHTML("assets/common/footer.html");
+  includeHTML("assets/common/footer.html", "footer-container");
 </script>
 
 <script src="assets/js/script.js"></script>
