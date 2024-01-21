@@ -1,0 +1,40 @@
+.timeline {
+    position: relative;
+    margin-top: 20px;
+  }
+  
+  .timeline-item {
+    list-style: none;
+    position: relative;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .timeline-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 0;
+    height: 100%;
+    border: 2px solid #4285f4; /* Adjust color as needed */
+  }
+  
+  .timeline-item-arrow {
+    position: absolute;
+    top: 50%;
+    left: -10px;
+    margin-top: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #4285f4; /* Adjust color as needed */
+  }
+  
+  .timeline-item-content {
+    margin-left: 20px;
+  }
+  
+  /* Additional styles can be added as needed */
+  

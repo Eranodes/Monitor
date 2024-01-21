@@ -23,6 +23,9 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <!-- Link to the new history.css file -->
+  <link rel="stylesheet" href="assets/css/history.css">
 
   <!-- Specify color -->
   <meta name="theme-color" content="#4285f4">
@@ -52,7 +55,9 @@
 <div class="history-content">
   <h2>Status History</h2>
   <p>This page displays the history of ActivNodes status updates.</p>
-  <!-- Add your specific content for the history page here if needed -->
+
+  <!-- Timeline Container -->
+  <div id="timeline-container"></div>
 </div>
 
 <!-- Include Footer -->
@@ -61,6 +66,7 @@
   includeHTML("assets/common/footer.html", "footer-container");
 </script>
 
-<script src="assets/js/script.js"></script>
+<!-- Load the history.js script -->
+<script src="assets/js/history.js"></script>
 </body>
 </html>
