@@ -9,6 +9,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware for logging requests
+app.use((req, res, next) => {
+  const logMessage = `${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip}`;
+  console.log(logMessage);
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 const axiosInstance = axios.create({
@@ -44,7 +51,6 @@ const sendDiscordNotification = (websiteName, status) => {
     });
   }
 };
-
 
 const checkWebsiteStatus = async (websiteUrl, websiteName) => {
   try {
