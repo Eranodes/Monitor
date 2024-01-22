@@ -2,6 +2,7 @@
 body, h1, h2, p {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -19,25 +20,21 @@ h1, h2 {
     color: #fff;
 }
 
-/* Apply a box model to the navigation */
 nav {
     background-color: #333; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 10px;
 }
 
-/* Style the unordered list within the navigation */
 nav ul {
     list-style: none; 
 }
 
-/* Style the list items within the navigation */
 nav li {
     display: inline-block; 
     margin-right: 20px; 
 }
 
-/* Style the anchor links within the navigation */
 nav a {
     text-decoration: none;
     color: #fff;
@@ -45,7 +42,6 @@ nav a {
     transition: color 0.3s; 
 }
 
-/* Change link color on hover */
 nav a:hover {
     color: #00bcd4;
 }
@@ -89,14 +85,25 @@ p {
 
 .history-bar {
     height: 30px;
-    margin-right: 5px;
     border-radius: 4px;
+    /* Adjusted width and margin for better responsiveness */
+    width: calc(100% / 20 - 10px);
+    margin-right: 5px;
 }
 
 /* Media query for phones */
 @media only screen and (max-width: 480px) {
     .history-bar {
-        width: calc(100% / 20 - 3px); 
-        margin-right: 4px;
+        width: calc(100% / 10 - 5px); /* Adjusted for 10 bars */
+        margin-right: 3px;
+    }
+
+    .status-section {
+        padding: 10px;
+    }
+
+    .history-container {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
