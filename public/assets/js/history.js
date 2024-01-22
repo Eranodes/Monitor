@@ -1,102 +1,75 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Load status data from the JSON file
-    fetch("assets/status.json")
+document.addEventListener('DOMContentLoaded', function () {
+    // Fetch the status data from the JSON file
+    fetch('assets/status.json')
         .then(response => response.json())
-        .then(data => {
-            console.log("Raw data from JSON:", data);
-
-            // Sort data by timestamp
-            data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-            console.log("Sorted data:", data);
-
-            // Process data to calculate downtime and patch time for each website
-            const processedData = processStatusData(data);
-            console.log("Processed data:", processedData);
-
-            // Generate HTML for the timeline
-            const timelineContainer = document.getElementById("timeline-container");
-            const timelineList = document.createElement("ul");
-            timelineList.classList.add("timeline");
-
-            processedData.forEach(entry => {
-                const listItem = document.createElement("li");
-                listItem.classList.add("timeline-item");
-
-                const arrow = document.createElement("div");
-                arrow.classList.add("timeline-item-arrow");
-                listItem.appendChild(arrow);
-
-                const timestamp = new Date(entry.timestamp).toLocaleString();
-                const patchTime = entry.patchTime ? new Date(entry.patchTime).toLocaleString() : "N/A";
-
-                const content = document.createElement("div");
-                content.classList.add("timeline-item-content");
-                content.innerHTML = `<strong>${timestamp}</strong><br>${entry.website} was down. Patch time: ${patchTime}`;
-                listItem.appendChild(content);
-
-                timelineList.appendChild(listItem);
-            });
-
-            timelineContainer.appendChild(timelineList);
-
-            // Add filter buttons for all websites
-            addFilterButtons(processedData);
-        })
-        .catch(error => console.error("Error fetching status data:", error));
+        .then(data => displayDowntimeHistory(data));
 });
 
-function processStatusData(data) {
-    const processedData = [];
-    let currentEntry = null;
+function displayDowntimeHistory(statusData) {
+    const historyContainer = document.getElementById('history-container');
 
-    data.forEach(entry => {
-        if (entry.status === "DOWN") {
-            if (!currentEntry || currentEntry.website !== entry.website || !isWithinFiveMinutes(currentEntry.timestamp, entry.timestamp)) {
-                // If there is a current entry and it's not the same website or not within 5 minutes, push it to processedData
-                if (currentEntry) {
-                    processedData.push(currentEntry);
+    // Group status entries by website
+    const websiteData = {};
+    statusData.forEach(entry => {
+        if (!websiteData[entry.website]) {
+            websiteData[entry.website] = [];
+        }
+        websiteData[entry.website].push(entry);
+    });
+
+    // Create a card for each website
+    Object.keys(websiteData).forEach(website => {
+        const cardContainer = document.createElement('div');
+        cardContainer.classList.add('card-container');
+        historyContainer.appendChild(cardContainer);
+
+        const websiteEntries = websiteData[website];
+        let currentDowntimeGroup = null;
+
+        websiteEntries.forEach((entry, index) => {
+            if (entry.status === 'DOWN') {
+                if (!currentDowntimeGroup) {
+                    // Start a new downtime group
+                    currentDowntimeGroup = {
+                        website: entry.website,
+                        downtimeStart: new Date(entry.timestamp).toLocaleString(),
+                        downtimeEnd: null,
+                    };
                 }
+            } else if (entry.status === 'UP' && currentDowntimeGroup) {
+                // End the current downtime group when an UP entry is found
+                currentDowntimeGroup.downtimeEnd = new Date(entry.timestamp).toLocaleString();
 
-                // Create a new downtime entry
-                currentEntry = { website: entry.website, timestamp: entry.timestamp, downtime: 1 };
-            } else {
-                // Continue adding downtime to the current entry
-                currentEntry.downtime += 1;
+                // Create and append the downtime entry to the card container
+                appendDowntimeEntry(currentDowntimeGroup, cardContainer);
+
+                // Reset the current downtime group
+                currentDowntimeGroup = null;
             }
-        } else if (entry.status === "UP" && currentEntry && currentEntry.website === entry.website) {
-            // If it's an UP status and matches the current entry's website, set the patch time and push to processedData
-            currentEntry.patchTime = entry.timestamp;
-            processedData.push(currentEntry);
-            currentEntry = null;
+        });
+
+        // Handle the case where the last entry is DOWN without an UP follow-up
+        if (currentDowntimeGroup) {
+            currentDowntimeGroup.downtimeEnd = 'Ongoing';
+            appendDowntimeEntry(currentDowntimeGroup, cardContainer);
         }
     });
+}
 
-    // Add the last entry if it exists
-    if (currentEntry) {
-        processedData.push(currentEntry);
+function appendDowntimeEntry(downtimeGroup, container) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    card.innerHTML = `
+        <p class="website-name">${downtimeGroup.website}</p>
+        <p class="downtime-start">Downtime started: ${downtimeGroup.downtimeStart}</p>
+    `;
+
+    if (downtimeGroup.downtimeEnd) {
+        card.innerHTML += `<p class="downtime-end">Downtime ended: ${downtimeGroup.downtimeEnd}</p>`;
+    } else {
+        card.innerHTML += `<p class="status-ongoing">Status: Ongoing</p>`;
     }
 
-    console.log("Processed data during processing function:", processedData);
-    return processedData;
-}
-
-
-function isWithinFiveMinutes(time1, time2) {
-    const diffInMinutes = (new Date(time2) - new Date(time1)) / (1000 * 60);
-    return diffInMinutes <= 5;
-}
-
-function addFilterButtons(processedData) {
-    const uniqueWebsites = [...new Set(processedData.map(entry => entry.website))];
-    const filterContainer = document.getElementById("filter-container");
-
-    uniqueWebsites.forEach(website => {
-        const filterButton = document.createElement("button");
-        filterButton.innerText = website;
-        filterButton.addEventListener("click", () => {
-            console.log(`Filtering timeline for ${website}`);
-            filterTimeline(processedData, website);
-        });
-        filterContainer.appendChild(filterButton);
-    });
+    container.appendChild(card);
 }

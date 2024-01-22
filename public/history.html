@@ -1,73 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ActivNodes - Status History">
-  <meta name="keywords" content="activnodes, status, server, dashboard, panel">
-  <meta name="author" content="ActivNodes">
-  <meta name="robots" content="index, follow">
-
-  <!-- Open Graph Protocol for Social Media Sharing -->
-  <meta property="og:title" content="ActivNodes | Status History">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://media.discordapp.net/attachments/1198216146659319939/1198216497143762944/activnodeswhite.png?ex=65be1912&is=65aba412&hm=83ae8dbdb6eb1cf8cb1cb602bbb8d1fa9e754906601b59d45b85dce1962e7c5b&=&format=webp&quality=lossless&width=586&height=601">
-  <meta property="og:url" content="https://status.activnodes.me/history">
-  <meta property="og:description" content="ActivNodes Status History">
-
-  <!-- Charset Meta Tag -->
-  <meta charset="UTF-8">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1191809697318187008/1196485178378436638/logo.png?ex=65b7cca8&is=65a557a8&hm=6dfe467eab9b75b54ae5b741b766a290f1043006a3f8d4a635c4dfe7f0ab2ce9" />
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="stylesheet" href="assets/css/history.css">
-
-  <!-- Specify color -->
-  <meta name="theme-color" content="#4285f4">
-
-  <script>
-    function includeHTML(filePath, targetId) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById(targetId).innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("GET", filePath, true);
-      xhttp.send();
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/history.css">
+    <title>Website Downtime History</title>
 </head>
 <body>
-
-<!-- Include Header -->
-<div id="header-container"></div>
-<script>
-  includeHTML("assets/common/header.html", "header-container");
-</script>
-
-<!-- History Content -->
-<div class="history-content">
-  <h2>Status History</h2>
-  <p>This page displays the history of ActivNodes status updates.</p>
-
-  <!-- Filter Container -->
-  <div id="filter-container"></div>
-
-  <!-- Timeline Container -->
-  <div id="timeline-container"></div>
-</div>
-
-<!-- Include Footer -->
-<div id="footer-container"></div>
-<script>
-  includeHTML("assets/common/footer.html", "footer-container");
-</script>
-
-<!-- Load the history.js script -->
-<script src="assets/js/history.js"></script>
+    <header>
+        <div class="container">
+            <h1>Website Downtime History</h1>
+        </div>
+    </header>
+    <main class="container">
+        <div id="history-container"></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Company</p>
+        </div>
+    </footer>
+    <script src="assets/js/history.js"></script>
 </body>
 </html>

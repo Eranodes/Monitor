@@ -1,40 +1,81 @@
-.timeline {
-    position: relative;
-    margin-top: 20px;
-  }
-  
-  .timeline-item {
-    list-style: none;
-    position: relative;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .timeline-item:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -10px;
-    width: 0;
-    height: 100%;
-    border: 2px solid #4285f4; /* Adjust color as needed */
-  }
-  
-  .timeline-item-arrow {
-    position: absolute;
-    top: 50%;
-    left: -10px;
-    margin-top: -10px;
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 10px solid #4285f4; /* Adjust color as needed */
-  }
-  
-  .timeline-item-content {
-    margin-left: 20px;
-  }
-  
-  /* Additional styles can be added as needed */
-  
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 15px 0;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  padding: 30px 0;
+}
+
+footer {
+  background-color: #343a40;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.card .website-name {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.card .downtime-start {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.card .downtime-end {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.card .status-ongoing {
+  font-weight: bold;
+  color: #ffc107;
+}
