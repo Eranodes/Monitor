@@ -1,17 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Set default sorting system and order
+    const sortMenu = document.getElementById('sort-options');
+    const sortOrderMenu = document.getElementById('sort-order');
+
+    // Set default values
+    sortMenu.value = 'start-time';
+    sortOrderMenu.value = 'desc';
+
     // Fetch the status data from the JSON file
     fetch('assets/status.json')
         .then(response => response.json())
-        .then(data => displayDowntimeHistory(data));
+        .then(data => {
+            // Display downtime history with default sorting
+            displayDowntimeHistory(data);
 
-    // Event listener for the sort menu
-    const sortMenu = document.getElementById('sort-options');
+            // Initial sort based on default values
+            sortDowntimeHistory(sortMenu.value);
+        });
+
+    // Event listeners for the sort menu and sort order menu
     sortMenu.addEventListener('change', function () {
         sortDowntimeHistory(this.value);
     });
 
-    // Event listener for the sort order menu
-    const sortOrderMenu = document.getElementById('sort-order');
     sortOrderMenu.addEventListener('change', function () {
         sortDowntimeHistory(sortMenu.value); // Re-sort when the order changes
     });
