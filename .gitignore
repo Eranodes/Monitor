@@ -7,3 +7,4 @@ public/assets/status.json
 node_modules
 .vscode/*
 package-lock.json
+logs/*
