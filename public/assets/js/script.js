@@ -16,7 +16,7 @@ function updateStatus(serverName, historyArray) {
   if (statusElement) {
       const latestEntry = historyArray[historyArray.length - 1] || {};
       const isOnline = latestEntry.status === 'UP';
-      statusElement.textContent = isOnline ? 'Online' : 'Offline';
+      statusElement.textContent = isOnline ? 'Online' : 'No data available yet!';
       statusElement.style.color = isOnline ? 'green' : 'red';
   }
 }
