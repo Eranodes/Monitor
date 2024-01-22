@@ -3,16 +3,37 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const axios = require('axios');
+const logger = require('./logger');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware for enhanced logging
+app.use((req, res, next) => {
+  const logMessage = {
+    timestamp: new Date().toISOString(),
+    method: req.method,
+    url: req.url,
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    contentType: req.get('Content-Type'),
+    params: req.params,
+    query: req.query,
+    body: req.body,
+  };
+
+  // Log details to the console or a file
+  logger.info(JSON.stringify(logMessage));
+
+  next();
+});
+
 // Middleware for logging requests
 app.use((req, res, next) => {
   const logMessage = `${new Date().toISOString()} - ${req.method} ${req.url} from ${req.ip}`;
-  console.log(logMessage);
+  logger.info(logMessage);
   next();
 });
 
@@ -44,26 +65,24 @@ const sendDiscordNotification = (websiteName, status) => {
       embeds: [embed],
     })
     .then(() => {
-      console.log('Discord notification sent successfully.');
+      logger.info('Discord notification sent successfully.');
     })
     .catch((error) => {
-      console.error('Error sending Discord notification:', error.message);
+      logger.error(`Error sending Discord notification: ${error.message}`);
     });
   }
 };
 
 const checkWebsiteStatus = async (websiteUrl, websiteName) => {
   try {
+    logger.info(`Checking status of ${websiteName} (${websiteUrl})...`);
+
     const response = await axiosInstance.get(`http://${websiteUrl}`);
     const status = response.status === 200 ? 'UP' : 'DOWN';
 
     // Append full response details to sites.log
-    const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is ${status}. Full Response: ${JSON.stringify(response.data)}\n`;
-    fs.appendFile(path.join(__dirname, 'sites.log'), logMessage, (err) => {
-      if (err) {
-        console.error('Error appending to sites.log:', err);
-      }
-    });
+    const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is ${status}. Full Response: ${JSON.stringify(response.data)}`;
+    logger.info(logMessage);
 
     // Log status to status.json
     logStatus(websiteName, status);
@@ -72,12 +91,8 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
     sendDiscordNotification(websiteName, status);
   } catch (error) {
     // Append full response details to sites.log for offline case
-    const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is DOWN. Error: ${error.message}\n`;
-    fs.appendFile(path.join(__dirname, 'sites.log'), logMessage, (err) => {
-      if (err) {
-        console.error('Error appending to sites.log:', err);
-      }
-    });
+    const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is DOWN. Error: ${error.message}`;
+    logger.error(logMessage);
 
     // Log status to status.json
     logStatus(websiteName, 'DOWN');
@@ -109,6 +124,7 @@ const logStatus = (websiteName, status) => {
   });
 
   fs.writeFileSync(statusFilePath, JSON.stringify(statusData, null, 2), 'utf8');
+  logger.info(`Status of ${websiteName} updated to: ${status}`);
 };
 
 // Check the status of each website on startup
@@ -132,6 +148,8 @@ const websites = [
 ];
 
 app.get('/status', async (req, res) => {
+  logger.info('Request received for /status endpoint.');
+
   const statusArray = [];
 
   for (const website of websites) {
@@ -148,7 +166,7 @@ app.get('/status', async (req, res) => {
 });
 
 app.listen(port, async () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  logger.info(`Server is running on http://localhost:${port}`);
   
   // Check website status on startup
   await checkStatusOnStartup();
