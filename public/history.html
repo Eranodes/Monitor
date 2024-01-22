@@ -1,25 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Include Common Meta Tags from index.html -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ActivNodes - Status Page">
+    <meta name="keywords" content="activnodes, status, server, dashboard, panel">
+    <meta name="author" content="ActivNodes">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ActivNodes | History">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1198216146659319939/1198216497143762944/activnodeswhite.png?ex=65be1912&is=65aba412&hm=83ae8dbdb6eb1cf8cb1cb602bbb8d1fa9e754906601b59d45b85dce1962e7c5b&=&format=webp&quality=lossless&width=586&height=601">
+    <meta property="og:url" content="https://status.activnodes.me">
+    <meta property="og:description" content="ActivNodes Status Page">
+
+    <!-- Charset Meta Tag -->
+    <meta charset="UTF-8">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1191809697318187008/1196485178378436638/logo.png?ex=65b7cca8&is=65a557a8&hm=6dfe467eab9b75b54ae5b741b766a290f1043006a3f8d4a635c4dfe7f0ab2ce9" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/history.css">
-    <title>Website Downtime History</title>
+
+    <!-- Specify color -->
+    <meta name="theme-color" content="#4285f4">
+
+    <!-- Include Common JavaScript Functions from index.html -->
+    <script>
+        function includeHTML(filePath, targetId) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById(targetId).innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", filePath, true);
+            xhttp.send();
+        }
+    </script>
+    <script>
+        includeHTML("assets/common/header.html", "header-container");
+    </script>
+    <script>
+        includeHTML("assets/common/footer.html", "footer-container");
+    </script>
+
+    <!-- Title for History Page -->
+    <title>ActivNodes History</title>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Website Downtime History</h1>
-        </div>
-    </header>
-    <main class="container">
-        <div id="history-container"></div>
-    </main>
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Your Company</p>
-        </div>
-    </footer>
-    <script src="assets/js/history.js"></script>
+
+<!-- Include Header -->
+<div id="header-container"></div>
+
+<!--History Container-->
+<main class="container">
+  <div id="history-container"></div>
+</main>
+
+<!-- Include Footer -->
+<div id="footer-container"></div>
+
+<!-- Include Common Script from index.html -->
+<script src="assets/js/script.js"></script>
+
+<!-- Include Common History JavaScript Function -->
+<script src="assets/js/history.js"></script>
+
 </body>
 </html>
