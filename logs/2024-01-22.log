@@ -24,3 +24,16 @@
 [ERROR] 2024-01-22T14:00:41.805Z - Panel Website (panel.activnodes.me) is DOWN. Error: Request failed with status code 403
 [INFO] Status of Panel Website updated to: DOWN
 [INFO] Discord notification sent successfully.
+[INFO] Server is running on http://localhost:65057
+[INFO] Checking status of Main Website (activnodes.me)...
+[ERROR] 2024-01-22T15:23:15.163Z - Main Website (activnodes.me) is DOWN. Error: Request failed with status code 403
+[INFO] Status of Main Website updated to: DOWN
+[INFO] Checking status of Dashboard Website (dash.activnodes.me)...
+[INFO] Discord notification sent successfully.
+[ERROR] 2024-01-22T15:23:16.494Z - Dashboard Website (dash.activnodes.me) is DOWN. Error: Request failed with status code 403
+[INFO] Status of Dashboard Website updated to: DOWN
+[INFO] Checking status of Panel Website (panel.activnodes.me)...
+[INFO] Discord notification sent successfully.
+[ERROR] 2024-01-22T15:23:17.497Z - Panel Website (panel.activnodes.me) is DOWN. Error: Request failed with status code 403
+[INFO] Status of Panel Website updated to: DOWN
+[INFO] Discord notification sent successfully.
