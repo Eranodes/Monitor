@@ -51,6 +51,6 @@ Your contributions and feedback are invaluable. If you have suggestions or would
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
-For questions or feedback, please reach out to the project maintainer:
+For questions or feedback, please reach out to the project maintainer:[G9MilitantsYT](https://github.com/g9militantsYT)
 
 Your feedback and contributions are highly appreciated!
