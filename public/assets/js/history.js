@@ -122,8 +122,6 @@ function getValueToSort(card, sortBy) {
             return card.querySelector('.website-name').textContent;
         case 'start-time':
             return card.querySelector('.downtime-start').textContent;
-        case 'end-time':
-            return card.querySelector('.downtime-end').textContent || 'Ongoing';
         default:
             return '';
     }
