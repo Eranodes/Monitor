@@ -19,8 +19,8 @@ main {
 /* Updated Sort Menu Styles */
 #sort-menu {
   margin-bottom: 20px;
-  background: transparent; /* Set background to transparent */
-  text-align: center; /* Center-align text */
+  background: transparent; 
+  text-align: center;
 }
 
 #sort-menu label,
@@ -31,7 +31,7 @@ main {
 
 select {
   padding: 8px;
-  color: #fff; /* Set text color to white */
+  color: #fff;
   background-color: #3f4042da;
   border-radius: 2px;
 }
@@ -39,8 +39,8 @@ select {
 /* Sort Order Menu Styles */
 #sort-order-menu {
   margin-bottom: 20px;
-  background: transparent; /* Set background to transparent */
-  text-align: center; /* Center-align text */
+  background: transparent;
+  text-align: center;
 }
 
 .card-container {
@@ -54,7 +54,7 @@ select {
   background-color: #333;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(82, 238, 207, 0.1);
   margin-bottom: 15px;
 }
 
