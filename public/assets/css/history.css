@@ -16,6 +16,26 @@ main {
   padding: 30px 0;
 }
 
+/* Sort Menu Styles */
+#sort-menu {
+  margin-bottom: 20px;
+}
+
+#sort-menu label,
+#sort-order-menu label {
+  color: #fff;
+  margin-right: 10px;
+}
+
+select {
+  padding: 8px;
+}
+
+/* Sort Order Menu Styles */
+#sort-order-menu {
+  margin-bottom: 20px;
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;

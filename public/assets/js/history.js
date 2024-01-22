@@ -3,6 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('assets/status.json')
         .then(response => response.json())
         .then(data => displayDowntimeHistory(data));
+
+    // Event listener for the sort menu
+    const sortMenu = document.getElementById('sort-options');
+    sortMenu.addEventListener('change', function () {
+        sortDowntimeHistory(this.value);
+    });
+
+    // Event listener for the sort order menu
+    const sortOrderMenu = document.getElementById('sort-order');
+    sortOrderMenu.addEventListener('change', function () {
+        sortDowntimeHistory(sortMenu.value); // Re-sort when the order changes
+    });
 });
 
 function displayDowntimeHistory(statusData) {
@@ -72,4 +84,47 @@ function appendDowntimeEntry(downtimeGroup, container) {
     }
 
     container.appendChild(card);
+}
+
+// Function to sort downtime history based on user selection and order
+function sortDowntimeHistory(sortBy) {
+    const historyContainer = document.getElementById('history-container');
+
+    // Get all cards inside the history container
+    const cards = Array.from(historyContainer.querySelectorAll('.card'));
+
+    // Get the sorting order (ascending or descending)
+    const sortOrder = document.getElementById('sort-order').value;
+
+    // Sort cards based on the selected option and sorting order
+    cards.sort((a, b) => {
+        const aValue = getValueToSort(a, sortBy);
+        const bValue = getValueToSort(b, sortBy);
+
+        if (sortOrder === 'asc') {
+            return aValue.localeCompare(bValue);
+        } else if (sortOrder === 'desc') {
+            return bValue.localeCompare(aValue);
+        }
+
+        return 0;
+    });
+
+    // Clear and append the sorted cards back to the history container
+    historyContainer.innerHTML = '';
+    cards.forEach(card => historyContainer.appendChild(card));
+}
+
+// Helper function to get the value for sorting
+function getValueToSort(card, sortBy) {
+    switch (sortBy) {
+        case 'website':
+            return card.querySelector('.website-name').textContent;
+        case 'start-time':
+            return card.querySelector('.downtime-start').textContent;
+        case 'end-time':
+            return card.querySelector('.downtime-end').textContent || 'Ongoing';
+        default:
+            return '';
+    }
 }
