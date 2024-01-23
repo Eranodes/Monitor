@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sortOrderMenu.value = 'desc';
 
     // Fetch the status data from the JSON file
-    fetch('assets/status.json')
+    fetch('/assets/status.json')
         .then(response => response.json())
         .then(data => {
             // Display downtime history with default sorting
