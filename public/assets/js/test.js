@@ -30,11 +30,20 @@ function createBarChart(containerId, websiteData) {
         // Check if there is any 'DOWN' status for the website on that day
         const isDown = dayData.some(entry => entry.status === 'DOWN');
 
+        // Check if data exists for the day
+        const hasData = dayData.length > 0;
+
         // Create a bar for the day
         const bar = document.createElement('div');
         bar.classList.add('status-bar');
-        bar.style.backgroundColor = isDown ? 'red' : 'green';
-        bar.title = `${websiteData[0].website} - ${day}\nStatus: ${isDown ? 'DOWN' : 'UP'}`;
+
+        // Set the background color based on status or yellow if no data
+        bar.style.backgroundColor = hasData ? (isDown ? 'red' : 'green') : 'yellow';
+
+        bar.title = hasData
+            ? `${websiteData[0].website} - ${day}\nStatus: ${isDown ? 'DOWN' : 'UP'}`
+            : `No data available for ${websiteData[0].website} on ${day}`;
+
         container.appendChild(bar);
     });
 }
