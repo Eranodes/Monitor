@@ -64,7 +64,7 @@ footer {
 }
 
 .status-bar {
-    width: 20px;
+    width: 10px;
     height: 50px;
     display: inline-block;
     margin-right: 5px;
@@ -80,14 +80,13 @@ p {
     align-items: center;
     margin: 10px;
     min-height: 40px;
-    justify-content: space-between;
+    justify-content: center; /* Center horizontally */
     overflow-x: auto;
 }
 
 .history-bar {
     height: 30px;
     border-radius: 4px;
-    /* Adjusted width and margin for better responsiveness */
     width: calc(100% / 20 - 10px);
     margin-right: 5px;
 }
@@ -95,7 +94,7 @@ p {
 /* Media query for phones */
 @media only screen and (max-width: 480px) {
     .history-bar {
-        width: calc(100% / 10 - 5px); /* Adjusted for 10 bars */
+        width: calc(100% / 10 - 5px);
         margin-right: 3px;
     }
 

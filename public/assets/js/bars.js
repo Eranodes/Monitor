@@ -14,17 +14,14 @@ async function fetchData(url) {
 }
 
 // Create bar charts for each website
-function createBarChart(containerId, websiteData) {
+function createBarChart(containerId, websiteData, dateRange) {
     const container = document.getElementById(containerId);
 
     // Group data by date
     const groupedData = groupByDate(websiteData);
 
-    // Get the last 30 days
-    const last30Days = getLast30Days();
-
-    // Loop through the last 30 days
-    last30Days.forEach(day => {
+    // Loop through the specified date range
+    dateRange.forEach(day => {
         const dayData = groupedData[day] || [];
 
         // Check if there is any 'DOWN' status for the website on that day
@@ -60,15 +57,15 @@ function groupByDate(data) {
     }, {});
 }
 
-// Function to get the last 30 days
-function getLast30Days() {
+// Function to get the last 90 days
+function getLast90Days() {
     const today = new Date();
-    const last30Days = Array.from({ length: 30 }, (_, index) => {
+    const last90Days = Array.from({ length: 90 }, (_, index) => {
         const date = new Date(today);
         date.setDate(today.getDate() - index);
         return date.toISOString().split('T')[0];
     });
-    return last30Days;
+    return last90Days;
 }
 
 // Load the JSON data
@@ -79,10 +76,10 @@ fetchData(jsonUrl)
         if (statusData) {
             console.log('JSON data loaded successfully:', statusData);
 
-            // Create bar charts for each website
-            createBarChart('main-section', statusData.filter(entry => entry.website === 'Main Website'));
-            createBarChart('dashboard-section', statusData.filter(entry => entry.website === 'Dashboard Website'));
-            createBarChart('panel-section', statusData.filter(entry => entry.website === 'Panel Website'));
+            // Create bar charts for each website with the last 90 days
+            createBarChart('main-section', statusData.filter(entry => entry.website === 'Main Website'), getLast90Days());
+            createBarChart('dashboard-section', statusData.filter(entry => entry.website === 'Dashboard Website'), getLast90Days());
+            createBarChart('panel-section', statusData.filter(entry => entry.website === 'Panel Website'), getLast90Days());
         }
     })
     .catch((error) => {
