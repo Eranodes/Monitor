@@ -42,39 +42,22 @@
 </head>
 <body>
 
-<!-- Include Header -->
-<div id="header-container"></div>
-<script>
-  includeHTML("assets/common/header.html", "header-container");
-</script>
+  <!-- Include Header -->
+  <div id="header-container"></div>
+  <script>
+    includeHTML("assets/common/header.html", "header-container");
+  </script>
 
-<!-- Main Website Status Section -->
-<div class="status-section" id="main-status-section">
-  <h2><a href="https://www.activnodes.me/" target="_blank">Main Website</a></h2>
-  <p id="main-status">Loading...</p>
-  <div class="history-container" id="main-history"></div>
-</div>
+  <div id="main-section" class="status-section"></div>
+  <div id="dashboard-section" class="status-section"></div>
+  <div id="panel-section" class="status-section"></div>
 
-<!-- Dashboard Website Status Section -->
-<div class="status-section" id="dashboard-status-section">
-  <h2><a href="https://dash.activnodes.me/" target="_blank">Dashboard</a></h2>
-  <p id="dashboard-status">Loading...</p>
-  <div class="history-container" id="dashboard-history"></div>
-</div>
+  <script src="assets/js/test.js"></script>  
 
-<!-- Panel Website Status Section -->
-<div class="status-section" id="panel-status-section">
-  <h2><a href="https://panel.activnodes.me/" target="_blank">Panel</a></h2>
-  <p id="panel-status">Loading...</p>
-  <div class="history-container" id="panel-history"></div>
-</div>
-
-<!-- Include Header -->
-<div id="footer-container"></div>
-<script>
-  includeHTML("assets/common/footer.html", "footer-container");
-</script>
-
-<script src="assets/js/script.js"></script>
+  <!-- Include Footer -->
+  <div id="footer-container"></div>
+  <script>
+    includeHTML("assets/common/footer.html", "footer-container");
+  </script>
 </body>
 </html>
