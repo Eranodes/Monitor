@@ -20,8 +20,8 @@ function createBarChart(containerId, websiteData, dateRange) {
     // Group data by date
     const groupedData = groupByDate(websiteData);
 
-    // Loop through the specified date range
-    dateRange.forEach(day => {
+    // Loop through the specified date range in reverse order
+    dateRange.reverse().forEach(day => {
         const dayData = groupedData[day] || [];
 
         // Check if there is any 'DOWN' status for the website on that day
@@ -76,7 +76,7 @@ fetchData(jsonUrl)
         if (statusData) {
             console.log('JSON data loaded successfully:', statusData);
 
-            // Create bar charts for each website with the last 90 days
+            // Create bar charts for each website with the last 90 days in reverse order
             createBarChart('main-section', statusData.filter(entry => entry.website === 'Main Website'), getLast90Days());
             createBarChart('dashboard-section', statusData.filter(entry => entry.website === 'Dashboard Website'), getLast90Days());
             createBarChart('panel-section', statusData.filter(entry => entry.website === 'Panel Website'), getLast90Days());

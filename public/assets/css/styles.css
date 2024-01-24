@@ -95,7 +95,7 @@ p {
 /* Media query for phones */
 @media only screen and (max-width: 480px) {
     .history-bar {
-        width: calc(100% / 10 - 5px);
+        width: calc(100% / 50 - 5px);
         margin-right: 3px;
     }
 
