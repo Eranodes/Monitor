@@ -61,6 +61,7 @@ footer {
 
 .status-section {
     margin-bottom: 20px;
+    text-align: center; /* Center content horizontally */
 }
 
 .status-bar {
