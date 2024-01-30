@@ -1,27 +1,27 @@
 # EraNodes Monitor
 
-![EraNodes Monitor Logo](https://nxrmqlly.is-from.space/eranodeslogo.png)
+<img src="https://github.com/Eranodes/.github/blob/main/icons/eranodesbanner-transparent.png?raw=true" alt="EraNodes Monitor Logo" style="width: 300px;">
 
 ## Introduction
-Welcome to EraNodes Monitor, a cutting-edge monitoring solution developed by G9 Aerospace. EraNodes Monitor is designed to provide a robust platform for monitoring and managing EraNodes. By offering real-time insights into the status and performance of EraNodes, this tool aims to enhance the efficiency and reliability of the EraNodes hosting systems.
+Greetings and welcome to EraNodes Monitor, an advanced monitoring solution crafted by G9 Aerospace. EraNodes Monitor stands as a robust platform tailored for monitoring and managing EraNodes. This tool is geared towards providing real-time insights into the status and performance of EraNodes, ultimately elevating the efficiency and reliability of EraNodes hosting systems.
 
 ## Features
-EraNodes Monitor comes equipped with a range of powerful features, including:
+EraNodes Monitor boasts a suite of powerful features, including:
 
-- **Real-time Monitoring:** Keep a close eye on EraNodes with real-time monitoring capabilities.
-- **Customizable Alerting:** Tailor alerts and notifications to suit your specific needs.
-- **Historical Data Analysis:** Dive into historical data for in-depth performance analysis.
-- **User-friendly Dashboard:** Visualize data effortlessly through a user-friendly dashboard.
-- **Extensible Architecture:** Easily integrate EraNodes Monitor with other systems for seamless operation.
+- **Real-time Monitoring:** Stay informed with real-time monitoring capabilities for your EraNodes.
+- **Customizable Alerting:** Tailor alerts and notifications to meet your specific requirements.
+- **Historical Data Analysis:** Delve into historical data for comprehensive performance analysis.
+- **User-friendly Dashboard:** Visualize data effortlessly through an intuitive and user-friendly dashboard.
+- **Extensible Architecture:** Seamlessly integrate EraNodes Monitor with other systems for a smooth operation.
 
 ## Installation
-Follow these steps to install EraNodes Monitor:
+To get started with EraNodes Monitor, follow these simple installation steps:
 
-1. **Clone the Repository:** `git clone https://github.com/EraNodes/Monitor.git`
-2. **Navigate to Project Directory:** `cd EraNodes-Monitor`
-3. **Install Dependencies:** `npm install`
+1. **Clone the Repository:** Execute `git clone https://github.com/EraNodes/Monitor.git`
+2. **Navigate to Project Directory:** Move into the EraNodes-Monitor directory using `cd EraNodes-Monitor`
+3. **Install Dependencies:** Run `npm install`
 4. **Configure Environment Variables:**
-    - Create a new file in your project directory and name it `.env`.
+    - Create a new file in your project directory named `.env`.
     - Open the `.env` file in a text editor.
     - Add the following lines with the corresponding values:
 
@@ -35,22 +35,22 @@ Follow these steps to install EraNodes Monitor:
 
         Ensure each variable is assigned its correct value.
 
-5. **Start the Application:** `npm start`
+5. **Start the Application:** Initiate the application with `npm start`
 
 ## Usage
-Harness the power of EraNodes Monitor with these simple steps:
+Leverage the capabilities of EraNodes Monitor with these straightforward steps:
 
 1. **Run the Application:** Activate the EraNodes Monitor application.
-2. **Access the Dashboard:** Open your preferred web browser and access the intuitive dashboard.
+2. **Access the Dashboard:** Open your preferred web browser and navigate to the intuitive dashboard.
 3. **Efficient Monitoring:** Monitor and manage EraNodes efficiently through the user-friendly interface.
 
 ## Contributing
-Your contributions and feedback are invaluable. If you have suggestions or would like to contribute to the project, please do!  
+Your contributions and feedback are invaluable. If you have suggestions or would like to contribute to the project, please do so!
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
-For questions or feedback, please reach out to the project maintainer:[G9MilitantsYT](https://github.com/g9militantsYT)
+For questions or feedback, feel free to reach out to the project maintainer: [G9MilitantsYT](https://github.com/g9militantsYT)
 
 Your feedback and contributions are highly appreciated!
