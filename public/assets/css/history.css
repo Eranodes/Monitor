@@ -1,0 +1,32 @@
+/* public/assets/css/history.css */
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .timeline-column {
+    flex: 1;
+    margin: 0 10px;
+  }
+  
+  .card {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .card-green {
+    background-color: #c8e6c9;
+  }
+  
+  .card-red {
+    background-color: #ffcdd2;
+  }
+  
+  .card-grey {
+    background-color: #e0e0e0;
+  }
+  
