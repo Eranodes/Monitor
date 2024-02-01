@@ -26,16 +26,17 @@ To get started with EraNodes Monitor, follow these simple installation steps:
     - Add the following lines with the corresponding values:
 
         ```env
-        PORT=<PORT>
+        PORT=<PORT TO BE USED FOR SERVING>
+        PORT=<PORT TO BE USED FOR QUERYING>
         MAIN_WEBSITE=<main.domain.com>
         DASHBOARD_WEBSITE=<dash.domain.com>
-        PANEL_WEBSITE=<dash.domain.com>
+        PANEL_WEBSITE=<panel.domain.com>
         DISCORD_WEBHOOK=<https://discord.com/api/webhooks/{webhook.id}/{webhook.token}>
         ```
 
         Ensure each variable is assigned its correct value.
 
-5. **Start the Application:** Initiate the application with `npm start`
+5. **Start the Application:** Initiate the application with `node serve`
 
 ## Usage
 Leverage the capabilities of EraNodes Monitor with these straightforward steps:
