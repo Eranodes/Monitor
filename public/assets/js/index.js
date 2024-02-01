@@ -17,6 +17,30 @@ const getStatusData = async (folderName) => {
     }
 };
 
+// Function to create and update information box
+const createInfoBox = (status, timestamp) => {
+    const infoBox = document.createElement('div');
+    infoBox.classList.add('info-box');
+
+    let statusText;
+    switch (status) {
+        case 'UP':
+            statusText = 'Site was UP';
+            break;
+        case 'DOWN':
+            statusText = 'Site was DOWN';
+            break;
+        default:
+            statusText = 'Data unavailable';
+    }
+
+    const timestampText = `Timestamp: ${new Date(timestamp).toLocaleString()}`;
+    
+    infoBox.textContent = `${statusText} (${timestampText})`;
+    
+    return infoBox;
+};
+
 // Function to generate status bars
 const generateStatusBars = async (sectionId, folderName) => {
     const section = document.getElementById(sectionId);
@@ -69,7 +93,25 @@ const generateStatusBars = async (sectionId, folderName) => {
         }
 
         barsContainer.appendChild(bar);
+
+        // Handle hover events
+        handleHover(bar, status, day);
     }
+};
+
+// Function to handle hover events
+const handleHover = (bar, status, timestamp) => {
+    bar.addEventListener('mouseover', () => {
+        const infoBox = createInfoBox(status, timestamp);
+        bar.appendChild(infoBox);
+    });
+
+    bar.addEventListener('mouseout', () => {
+        const infoBox = bar.querySelector('.info-box');
+        if (infoBox) {
+            infoBox.remove();
+        }
+    });
 };
 
 // Call the function for each website section after DOM is ready

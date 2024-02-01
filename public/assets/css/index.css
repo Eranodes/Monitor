@@ -15,6 +15,7 @@ h2 {
     flex: 1;
     height: 20px;
     margin-right: 2px;
+    position: relative;
 }
 
 .orange-bar {
@@ -28,3 +29,29 @@ h2 {
 .grey-bar {
     background-color: #D3D3D3; 
 }
+
+.info-box {
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #888787;
+    border-radius: 5px;
+    z-index: 1;
+    max-width: 300px;
+    word-wrap: break-word;
+
+    /* Center the info box */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Ensure it doesn't overflow the viewport */
+    max-height: calc(100vh - 20px);
+    max-width: calc(100vw - 20px);
+    overflow: auto;
+
+    /* Adjust position dynamically based on box dimensions */
+    margin-left: -150px; /* half of max-width */
+    margin-top: -15px; /* half of padding */
+}
+
