@@ -19,6 +19,12 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
+
+h2 {
+    font-size: 1.5em;
+    color: #888787;
+}
+
 header {
     background-color: var(--header-bg-color);
     color: var(--text-color);

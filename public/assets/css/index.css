@@ -2,11 +2,6 @@ section {
     margin-bottom: 20px;
 }
 
-h2 {
-    font-size: 1.5em;
-    color: #888787;
-}
-
 .status-bars {
     display: flex;
 }
