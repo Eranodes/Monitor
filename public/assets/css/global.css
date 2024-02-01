@@ -1,5 +1,3 @@
-/* public/assets/css/global.css */
-
 :root {
     --body-bg-color: #041220;
     --header-bg-color: #031221;
@@ -40,7 +38,7 @@ nav {
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
     text-align: center;
-    color: white; /* Set the default text color to white */
+    color: white
 }
 
 nav ul {
@@ -52,12 +50,12 @@ nav ul {
 nav ul li {
     display: inline;
     margin-right: 10px;
-    color: white; /* Set the default text color to white */
+    color: white;
 }
 
 nav a {
     text-decoration: none;
-    color: white; /* Set the text color to white */
+    color: white; 
 }
 
 main {
@@ -96,7 +94,7 @@ footer a {
     nav ul li {
         display: block;
         margin: 5px 0;
-        color: white; /* Set the text color to white */
+        color: white;
     }
 
     footer a {

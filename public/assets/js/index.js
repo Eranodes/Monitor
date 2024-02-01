@@ -1,5 +1,3 @@
-// assets/js/index.js
-
 // Function to fetch status data from JSON files
 const getStatusData = async (folderName) => {
     try {

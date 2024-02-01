@@ -1,5 +1,3 @@
-// public/assets/js/global.js
-
 // Function to load external HTML file into a specified container
 const loadHTML = (filePath, containerId) => {
     const container = document.getElementById(containerId);
