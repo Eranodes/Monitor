@@ -1,0 +1,30 @@
+section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #888787;
+}
+
+.status-bars {
+    display: flex;
+}
+
+.status-bar {
+    flex: 1;
+    height: 20px;
+    margin-right: 2px;
+}
+
+.orange-bar {
+    background-color: #ff9d00;
+}
+
+.green-bar {
+    background-color: #00FF00;
+}
+
+.grey-bar {
+    background-color: #D3D3D3; 
+}

@@ -40,7 +40,7 @@ const sendDiscordNotification = (websiteName, status) => {
   }
 };
 
-const checkWebsiteStatus = async (websiteUrl, websiteName) => {
+const checkWebsiteStatus = async (websiteUrl, websiteName, folderName) => {
   try {
     logger.info(`Checking status of ${websiteName} (${websiteUrl})...`);
 
@@ -51,9 +51,9 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
     const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is ${status}. Full Response: ${JSON.stringify(response.data)}`;
     logger.info(logMessage);
 
-    // Log status to status.json
-    logStatus(websiteName, status);
-
+    // Log status to data file
+    logStatus(websiteName, status, folderName);
+    
     // Send Discord notification
     sendDiscordNotification(websiteName, status);
   } catch (error) {
@@ -61,49 +61,69 @@ const checkWebsiteStatus = async (websiteUrl, websiteName) => {
     const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is DOWN. Error: ${error.message}`;
     logger.error(logMessage);
 
-    // Log status to status.json
-    logStatus(websiteName, 'DOWN');
+    // Log status to data file for DOWN status
+    logStatus(websiteName, 'DOWN', folderName);
 
     // Send Discord notification for DOWN status
     sendDiscordNotification(websiteName, 'DOWN');
   }
 };
 
-const logStatus = (websiteName, status) => {
+const logStatus = (websiteName, status, folderName) => {
   const statusEntry = {
     timestamp: new Date().toISOString(),
     status: status,
   };
 
-  const statusFilePath = path.join(__dirname, 'public', 'assets', 'status.json');
+  const currentDate = new Date();
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const year = String(currentDate.getFullYear());
+
+  const fileName = `${day}${month}${year}.json`;
+  const filePath = path.join(__dirname, 'public', 'assets', 'data', folderName);
+
+  // Ensure the directory structure exists
+  if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(filePath, { recursive: true });
+  }
+
+  const fullPath = path.join(filePath, fileName);
+
   let statusData = [];
 
   try {
-    const existingStatus = fs.readFileSync(statusFilePath, 'utf8');
+    const existingStatus = fs.readFileSync(fullPath, 'utf8');
     statusData = JSON.parse(existingStatus);
   } catch (error) {
     // File doesn't exist or is empty
   }
 
   statusData.push({
-    website: websiteName,
     ...statusEntry,
   });
 
-  fs.writeFileSync(statusFilePath, JSON.stringify(statusData, null, 2), 'utf8');
+  fs.writeFileSync(fullPath, JSON.stringify(statusData, null, 2), 'utf8');
   logger.info(`Status of ${websiteName} updated to: ${status}`);
 };
 
 const checkStatusOnStartup = async () => {
   for (const website of websites) {
-    await checkWebsiteStatus(website.url, website.name);
+    await checkWebsiteStatus(website.url, website.name, website.folder);
   }
+
+  // Schedule status checks every 1 minute (60000 milliseconds)
+  setInterval(async () => {
+    for (const website of websites) {
+      await checkWebsiteStatus(website.url, website.name, website.folder);
+    }
+  }, 60000);
 };
 
 const websites = [
-  { url: process.env.MAIN_WEBSITE, name: 'Main Website' },
-  { url: process.env.DASHBOARD_WEBSITE, name: 'Dashboard Website' },
-  { url: process.env.PANEL_WEBSITE, name: 'Panel Website' },
+  { url: process.env.MAIN_WEBSITE, name: 'Main Website', folder: 'main' },
+  { url: process.env.DASHBOARD_WEBSITE, name: 'Dashboard Website', folder: 'dashboard' },
+  { url: process.env.PANEL_WEBSITE, name: 'Panel Website', folder: 'panel' },
 ];
 
 const port = process.env.PORT_2 || 3001;
