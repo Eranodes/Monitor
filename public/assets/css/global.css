@@ -1,3 +1,4 @@
+/* Root variables for consistent theming */
 :root {
     --body-bg-color: #041220;
     --header-bg-color: #031221;
@@ -6,9 +7,11 @@
     --text-color: white;
     --link-color: blue;
     --border-color: #385c81;
-    --border-radius: 2px;
+    --border-radius: 5px;
+    --box-shadow-color: rgba(0, 0, 0, 0.2);
 }
 
+/* General styling for the entire page */
 body {
     min-height: 100vh;
     display: flex;
@@ -19,12 +22,13 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-
+/* Heading styles */
 h2 {
     font-size: 1.5em;
     color: #888787;
 }
 
+/* Header section styles */
 header {
     background-color: var(--header-bg-color);
     color: var(--text-color);
@@ -35,6 +39,7 @@ header {
     border-radius: var(--border-radius);
 }
 
+/* Navigation styles */
 nav {
     position: absolute;
     top: 100%;
@@ -44,7 +49,8 @@ nav {
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
     text-align: center;
-    color: white
+    color: white;
+    box-shadow: 0 4px 8px var(--box-shadow-color);
 }
 
 nav ul {
@@ -57,17 +63,24 @@ nav ul li {
     display: inline;
     margin-right: 10px;
     color: white;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav ul li:hover {
+    transform: translateY(-3px);
 }
 
 nav a {
     text-decoration: none;
-    color: white; 
+    color: white;
 }
 
+/* Main content area */
 main {
     flex: 1;
 }
 
+/* Footer styles */
 footer {
     background-color: var(--footer-bg-color);
     color: var(--text-color);
@@ -95,12 +108,15 @@ footer a {
         position: static;
         width: 100%;
         text-align: center;
+        box-shadow: none;
     }
 
     nav ul li {
         display: block;
         margin: 5px 0;
         color: white;
+        transform: none;
+        transition: none;
     }
 
     footer a {
