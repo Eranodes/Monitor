@@ -18,7 +18,7 @@ const getStatusData = async (folderName) => {
 };
 
 // Function to create and update information box
-const createInfoBox = (status, timestamp) => {
+const createInfoBox = (status, start, end) => {
     const infoBox = document.createElement('div');
     infoBox.classList.add('info-box');
 
@@ -28,16 +28,14 @@ const createInfoBox = (status, timestamp) => {
             statusText = 'Site was UP';
             break;
         case 'DOWN':
-            statusText = 'Site was DOWN';
+            statusText = `Site was DOWN from ${new Date(start).toLocaleString()} to ${new Date(end).toLocaleString()}`;
             break;
         default:
             statusText = 'Data unavailable';
     }
 
-    const timestampText = `Timestamp: ${new Date(timestamp).toLocaleString()}`;
-    
-    infoBox.textContent = `${statusText} (${timestampText})`;
-    
+    infoBox.textContent = statusText;
+
     return infoBox;
 };
 
@@ -57,9 +55,15 @@ const generateStatusBars = async (sectionId, folderName) => {
     const statusByDay = statusData.reduce((acc, entry) => {
         const day = new Date(entry.timestamp).toLocaleDateString();
         if (!acc[day]) {
-            acc[day] = entry.status;
+            acc[day] = { status: entry.status, start: entry.timestamp, end: entry.timestamp };
         } else if (entry.status === 'DOWN') {
-            acc[day] = 'DOWN';
+            // If consecutive DOWN events, update the end timestamp
+            if (acc[day].status === 'DOWN') {
+                acc[day].end = entry.timestamp;
+            } else {
+                // If previous status was UP, start a new DOWN event
+                acc[day] = { status: 'DOWN', start: entry.timestamp, end: entry.timestamp };
+            }
         }
         return acc;
     }, {});
@@ -79,7 +83,7 @@ const generateStatusBars = async (sectionId, folderName) => {
         day.setDate(currentDate.getDate() - i);
 
         const formattedDay = day.toLocaleDateString();
-        const status = statusByDay[formattedDay] || 'MISSING';
+        const { status, start, end } = statusByDay[formattedDay] || { status: 'MISSING' };
 
         const bar = document.createElement('div');
         bar.classList.add('status-bar');
@@ -95,14 +99,14 @@ const generateStatusBars = async (sectionId, folderName) => {
         barsContainer.appendChild(bar);
 
         // Handle hover events
-        handleHover(bar, status, day);
+        handleHover(bar, status, start, end);
     }
 };
 
 // Function to handle hover events
-const handleHover = (bar, status, timestamp) => {
+const handleHover = (bar, status, start, end) => {
     bar.addEventListener('mouseover', () => {
-        const infoBox = createInfoBox(status, timestamp);
+        const infoBox = createInfoBox(status, start, end);
         bar.appendChild(infoBox);
     });
 
