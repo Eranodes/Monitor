@@ -29,40 +29,52 @@ document.addEventListener('DOMContentLoaded', function () {
       return `${formattedDate} ${formattedTime}`;
   };
 
-  // Function to render the timeline for a website
-  const renderTimeline = async (timelineId, folderName) => {
-      const timelineContainer = document.getElementById(timelineId);
+// Function to render the timeline for a website
+const renderTimeline = async (timelineId, folderName) => {
+  const timelineContainer = document.getElementById(timelineId);
 
-      try {
-          const data = await fetchData(folderName);
+  try {
+      const data = await fetchData(folderName);
 
-          if (data.length === 0) {
-              // If no data available for the current day, show a grey card
-              const card = createCard('No data available', 'card-grey');
-              timelineContainer.appendChild(card);
-              return;
-          }
+      if (data.length === 0) {
+          // If no data available for the current day, show a grey card
+          const card = createCard('No data available', 'card-grey');
+          timelineContainer.appendChild(card);
+          return;
+      }
 
-          let mergedEvents = mergeDownEvents(data);
+      let mergedEvents = mergeDownEvents(data);
 
-          for (const event of mergedEvents) {
-              const { status, startTimestamp, endTimestamp, resolvedTimestamp } = event;
+      // Check if the latest entry is a DOWN status
+      const latestEntry = mergedEvents[mergedEvents.length - 1];
+      const isOngoingDowntime = latestEntry && latestEntry.status === 'DOWN';
 
-              // Create card for the merged event
-              const card = createCard(status, getStatusColor(status));
-              card.innerHTML += `  Started: ${formatTimestamp(startTimestamp)}, Ended: ${formatTimestamp(endTimestamp)}`;
+      for (const event of mergedEvents) {
+          const { status, startTimestamp, endTimestamp, resolvedTimestamp } = event;
 
+          // Create card for the merged event
+          const card = createCard(status, getStatusColor(status));
+          card.innerHTML += `  Started: ${formatTimestamp(startTimestamp)}`;
+
+          // Display ongoing downtime message if the latest entry is DOWN
+          if (isOngoingDowntime && event === latestEntry) {
+              card.innerHTML += '<br>Currently Down';
+          } else {
               // Add additional line for resolved timestamp if applicable
+              card.innerHTML += `, Ended: ${formatTimestamp(endTimestamp)}`;
+              
+              // Add resolved timestamp if applicable
               if (resolvedTimestamp) {
                   card.innerHTML += `<br>Resolved at: ${formatTimestamp(resolvedTimestamp)}`;
               }
-
-              timelineContainer.appendChild(card);
           }
-      } catch (error) {
-          console.error(`Error fetching data for ${folderName}: ${error.message}`);
+
+          timelineContainer.appendChild(card);
       }
-  };
+  } catch (error) {
+      console.error(`Error fetching data for ${folderName}: ${error.message}`);
+  }
+};
 
   // Function to merge consecutive DOWN events
   const mergeDownEvents = (data) => {
