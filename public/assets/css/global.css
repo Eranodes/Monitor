@@ -123,6 +123,13 @@ footer a {
         color: white;
         transform: none;
         transition: none;
+        border-right: none; 
+        border-bottom: 1px solid white;
+        padding: 10px 0;
+    }
+
+    nav ul li:last-child {
+        border-bottom: none; /* Remove separator for last item */
     }
 
     footer a {
