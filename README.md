@@ -36,7 +36,7 @@ To get started with EraNodes Monitor, follow these simple installation steps:
 
         Ensure each variable is assigned its correct value.
 
-5. **Start the Application:** Initiate the application with `node serve`
+5. **Start the Application:** Initiate the application with `node .`
 
 ## Usage
 Leverage the capabilities of EraNodes Monitor with these straightforward steps:
