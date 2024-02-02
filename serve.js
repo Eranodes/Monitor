@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const logger = require('./logger');
+const packageJson = require('./package.json');
 
 dotenv.config();
 
@@ -33,7 +34,8 @@ app.listen(port1, () => {
   Using ${port1} for serving status page and ${port2} for querying the eranodes sites!
   For support, join our Discord server: https://discord.gg/jhju3spUbE
   -----------------------
-  Server is running on port: ${port1}`);
+  Server is running on port: ${port1}
+  Version: ${packageJson.version}`);
   
   // Run the status check script on startup
   const statusCheckScript = require('./status');
