@@ -6,6 +6,8 @@ section {
 
 .status-bars {
     display: flex;
+    background-color: var(--border-color);
+    padding: 10px;
 }
 
 .status-bar {
@@ -13,6 +15,7 @@ section {
     height: 20px;
     margin-right: 2px;
     position: relative;
+    height: 30px;
 }
 
 .orange-bar {
