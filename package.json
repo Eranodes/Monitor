@@ -10,7 +10,7 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0"
   },
-  "name": "activenodes-monitor",
+  "name": "monitor",
   "version": "1.0.1",
   "description": "Monitoring website for activenodes",
   "main": "serve.js",
@@ -19,7 +19,7 @@
     "release": "standard-version"
   },
   "keywords": [
-    "activenodes",
+    "eranodes",
     "monitor"
   ],
   "author": "G9 Aerospace",
