@@ -1,32 +1,55 @@
 /* public/assets/css/history.css */
 
+/* Timeline styling */
 .timeline {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-  }
-  
-  .timeline-column {
-    flex: 1;
-    margin: 0 10px;
-  }
-  
-  .card {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .card-green {
-    background-color: #c8e6c9;
-  }
-  
-  .card-red {
-    background-color: #ffcdd2;
-  }
-  
-  .card-grey {
-    background-color: #e0e0e0;
-  }
-  
+  display: flex;
+  flex-wrap: wrap; /* Allow timeline items to wrap to the next line */
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.timeline-column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.card {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card-green {
+  background-color: #c8e6c9;
+}
+
+.card-red {
+  background-color: #ffcdd2;
+}
+
+.card-grey {
+  background-color: #e0e0e0;
+}
+
+/* Pagination styling */
+.pagination {
+  margin-top: 10px;
+}
+
+.pagination-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.pagination-button:hover {
+  background-color: #45a049;
+}
