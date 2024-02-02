@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
               // Create card for the merged event
               const card = createCard(status, getStatusColor(status));
-              card.innerHTML += ` (Started: ${formatTimestamp(startTimestamp)}, Ended: ${formatTimestamp(endTimestamp)})`;
+              card.innerHTML += `  Started: ${formatTimestamp(startTimestamp)}, Ended: ${formatTimestamp(endTimestamp)}`;
 
               // Add additional line for resolved timestamp if applicable
               if (resolvedTimestamp) {
