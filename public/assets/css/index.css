@@ -22,7 +22,7 @@ section {
 }
 
 .grey-bar {
-    background-color: #D3D3D3; 
+    background-color: #D3D3D3;
 }
 
 .info-box {
@@ -46,7 +46,5 @@ section {
     overflow: auto;
 
     /* Adjust position dynamically based on box dimensions */
-    margin-left: -150px; /* half of max-width */
-    margin-top: -15px; /* half of padding */
+    left: calc(min(100vw - 20px - 300px, max(20px, var(--cursor-x) - 150px)));
 }
-
