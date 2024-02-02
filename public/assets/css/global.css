@@ -129,7 +129,7 @@ footer a {
     }
 
     nav ul li:last-child {
-        border-bottom: none; /* Remove separator for last item */
+        border-bottom: none; 
     }
 
     footer a {

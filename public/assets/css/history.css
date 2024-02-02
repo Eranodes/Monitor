@@ -1,9 +1,7 @@
-/* public/assets/css/history.css */
-
 /* Timeline styling */
 .timeline {
   display: flex;
-  flex-wrap: wrap; /* Allow timeline items to wrap to the next line */
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0;
 }
