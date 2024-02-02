@@ -69,7 +69,7 @@ nav ul li {
 }
 
 nav ul li:last-child {
-    border-right: none; /* Remove border for the last item */
+    border-right: none;
 }
 
 nav ul li:hover {
