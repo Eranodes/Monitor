@@ -28,9 +28,9 @@ To get started with EraNodes Monitor, follow these simple installation steps:
         ```env
         PORT=<PORT TO BE USED FOR SERVING>
         PORT=<PORT TO BE USED FOR QUERYING>
-        MAIN_WEBSITE=<main.domain.com>
-        DASHBOARD_WEBSITE=<dash.domain.com>
-        PANEL_WEBSITE=<panel.domain.com>
+        MAIN_WEBSITE=eranodes.xyz
+        DASHBOARD_WEBSITE=freedash.eranodes.xyz
+        PANEL_WEBSITE=panel.eranodes.xyz
         DISCORD_WEBHOOK=<https://discord.com/api/webhooks/{webhook.id}/{webhook.token}>
         ```
 
