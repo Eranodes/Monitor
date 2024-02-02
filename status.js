@@ -47,10 +47,6 @@ const checkWebsiteStatus = async (websiteUrl, websiteName, folderName) => {
     const response = await axiosInstance.get(`http://${websiteUrl}`);
     const status = response.status === 200 ? 'UP' : 'DOWN';
 
-    // Append full response details to sites.log
-    const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is ${status}. Full Response: ${JSON.stringify(response.data)}`;
-    logger.info(logMessage);
-
     // Log status to data file
     logStatus(websiteName, status, folderName);
     
