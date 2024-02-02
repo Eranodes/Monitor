@@ -64,6 +64,12 @@ nav ul li {
     margin-right: 10px;
     color: white;
     transition: transform 0.3s ease-in-out;
+    border-right: 1px solid white; /* Add a border on the right side */
+    padding-right: 10px; /* Add padding on the right side for spacing */
+}
+
+nav ul li:last-child {
+    border-right: none; /* Remove border for the last item */
 }
 
 nav ul li:hover {
