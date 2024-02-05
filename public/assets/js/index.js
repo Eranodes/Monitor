@@ -31,7 +31,7 @@ const createInfoBox = (status, start, end) => {
             statusText = `Site was DOWN from ${new Date(start).toLocaleString()} to ${new Date(end).toLocaleString()}`;
             break;
         default:
-            statusText = 'Data unavailable';
+            statusText = status;
     }
 
     infoBox.textContent = statusText;
@@ -91,13 +91,24 @@ const generateStatusBars = async (sectionId, folderName, numDays) => {
         } else if (status === 'UP') {
             bar.classList.add('green-bar');
         } else {
-            bar.classList.add('grey-bar');
+            // Check if data is missing or there's an error loading the data
+            const isError = status === 'ERROR';
+            const isDataUnavailable = !statusData.some(entry => new Date(entry.timestamp).toLocaleDateString() === formattedDay);
+
+            if (isError) {
+                bar.classList.add('yellow-bar');
+            } else if (isDataUnavailable) {
+                bar.classList.add('grey-bar');
+            } else {
+                bar.classList.add('yellow-bar'); // Change color for other unknown cases
+            }
+
+            // Set appropriate hover text
+            const hoverText = isError ? 'ERROR' : isDataUnavailable ? 'Data unavailable' : 'Unknown issue';
+            handleHover(bar, hoverText, start, end);
         }
 
         barsContainer.appendChild(bar);
-
-        // Handle hover events
-        handleHover(bar, status, start, end);
     }
 };
 
