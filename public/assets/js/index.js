@@ -40,7 +40,7 @@ const createInfoBox = (status, start, end) => {
 };
 
 // Function to generate status bars
-const generateStatusBars = async (sectionId, folderName) => {
+const generateStatusBars = async (sectionId, folderName, numDays) => {
     const section = document.getElementById(sectionId);
 
     if (!section) {
@@ -57,11 +57,9 @@ const generateStatusBars = async (sectionId, folderName) => {
         if (!acc[day]) {
             acc[day] = { status: entry.status, start: entry.timestamp, end: entry.timestamp };
         } else if (entry.status === 'DOWN') {
-            // If consecutive DOWN events, update the end timestamp
             if (acc[day].status === 'DOWN') {
                 acc[day].end = entry.timestamp;
             } else {
-                // If previous status was UP, start a new DOWN event
                 acc[day] = { status: 'DOWN', start: entry.timestamp, end: entry.timestamp };
             }
         }
@@ -76,9 +74,9 @@ const generateStatusBars = async (sectionId, folderName) => {
         return;
     }
 
-    // Loop through the last 90 days and create bars accordingly
+    // Loop through the last numDays and create bars accordingly
     const currentDate = new Date();
-    for (let i = 89; i >= 0; i--) {
+    for (let i = numDays - 1; i >= 0; i--) {
         const day = new Date(currentDate);
         day.setDate(currentDate.getDate() - i);
 
@@ -120,7 +118,7 @@ const handleHover = (bar, status, start, end) => {
 
 // Call the function for each website section after DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    generateStatusBars('main-website-section', 'main');
-    generateStatusBars('dashboard-website-section', 'dashboard');
-    generateStatusBars('panel-website-section', 'panel');
+    generateStatusBars('main-website-section', 'main', 30); // Show bars for the last 30 days
+    generateStatusBars('dashboard-website-section', 'dashboard', 30); // Show bars for the last 30 days
+    generateStatusBars('panel-website-section', 'panel', 30); // Show bars for the last 30 days
 });
