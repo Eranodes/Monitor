@@ -3,7 +3,7 @@
     --body-bg-color: #041220;
     --header-bg-color: #031221;
     --nav-bg-gradient: linear-gradient(to right, #052341, #071f37);
-    --footer-bg-color: #030a10;
+    --footer-bg-color: var(--body-bg-color);
     --text-color: rgb(169, 169, 169);
     --link-color: blue;
     --border-color: #385c81;
