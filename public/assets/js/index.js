@@ -45,12 +45,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         dateText.textContent = `Date: ${formattedDate}`;
         infoBox.appendChild(dateText);
 
-        if (downTimes && downTimes.length > 0) {
-            const timesText = document.createElement("p");
-            timesText.textContent = `Down Times: ${formatDownTimes(downTimes)}`;
-            infoBox.appendChild(timesText);
-        }
-
         return infoBox;
     }
 
@@ -162,7 +156,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         return data ? data.filter(entry => entry.status === "DOWN").map(entry => formatTimestamp(entry.timestamp, "HH:mm A")) : [];
     }
 
-    // Show info box with date and down times
+    // Show info box with date
     function showInfoBox(date, downTimes) {
         // Create info box
         const infoBox = createInfoBox(date, downTimes);
