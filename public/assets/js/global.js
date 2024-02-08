@@ -46,8 +46,8 @@ const stopLoader = () => {
         loaderContainer.innerHTML = ''; // Remove loader content
     }
 
-    // Additional checks or actions after the loader is stopped
-    console.log("Loader stopped. Perform additional checks or actions here.");
+    // Additional checks or actions
+    console.log("Page loaded successfully!");
 };
 
 // Load header and footer
