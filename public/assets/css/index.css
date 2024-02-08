@@ -31,25 +31,11 @@ section {
 }
 
 .info-box {
-    position: absolute;
     background-color: #fff;
     padding: 10px;
     border: 1px solid #888787;
-    border-radius: 5px;
+    border-radius: 2px;
     z-index: 1;
     max-width: 300px;
     word-wrap: normal;
-
-    /* Center the info box */
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
-    /* Ensure it doesn't overflow the viewport */
-    max-height: calc(100vh - 20px);
-    max-width: calc(100vw - 20px);
-    overflow: auto;
-
-    /* Adjust position dynamically based on box dimensions */
-    left: calc(min(100vw - 20px - 300px, max(20px, var(--cursor-x) - 150px)));
 }

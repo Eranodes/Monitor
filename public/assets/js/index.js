@@ -102,11 +102,20 @@ document.addEventListener("DOMContentLoaded", function () {
   
     // Show info box with date and down times
     function showInfoBox(date, downTimes) {
-      // Create info box
-      const infoBox = createInfoBox(date, downTimes);
-  
-      // Append info box to body
-      document.body.appendChild(infoBox);
+        // Create info box
+        const infoBox = createInfoBox(date, downTimes);
+
+        // Get cursor position
+        const cursorX = event.clientX;
+        const cursorY = event.clientY;
+
+        // Set info box position
+        infoBox.style.position = "absolute";
+        infoBox.style.left = `${cursorX}px`;
+        infoBox.style.top = `${cursorY}px`;
+
+        // Append info box to body
+        document.body.appendChild(infoBox);
     }
   
     // Remove info box
