@@ -1,126 +1,132 @@
-// Function to fetch status data from JSON files
-const getStatusData = async (folderName) => {
-    try {
-        const currentDate = new Date();
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        const year = String(currentDate.getFullYear());
-        const fileName = `${day}${month}${year}.json`;
-
-        const response = await fetch(`assets/data/${folderName}/${fileName}`);
-        const data = await response.json();
-
-        return data;
-    } catch (error) {
-        console.error(`Error fetching status data: ${error.message}`);
-        return [];
+document.addEventListener("DOMContentLoaded", function () {
+    // Define the number of bars to display
+    const numBars = 30;
+  
+    // Function to create a status bar element
+    function createStatusBar(status) {
+      const statusBar = document.createElement("div");
+      statusBar.classList.add("status-bar");
+  
+      if (status === "DOWN") {
+        statusBar.classList.add("orange-bar");
+      } else if (status === "UP") {
+        statusBar.classList.add("green-bar");
+      } else {
+        statusBar.classList.add("grey-bar");
+      }
+  
+      return statusBar;
     }
-};
-
-// Function to create and update information box
-const createInfoBox = (status, start, end) => {
-    const infoBox = document.createElement('div');
-    infoBox.classList.add('info-box');
-
-    let statusText;
-    switch (status) {
-        case 'UP':
-            statusText = 'Site was UP';
-            break;
-        case 'DOWN':
-            statusText = `Site was DOWN from ${new Date(start).toLocaleString()} to ${new Date(end).toLocaleString()}`;
-            break;
-        default:
-            statusText = 'Data unavailable';
+  
+    // Function to create an info box element
+    function createInfoBox(status, timestamp) {
+      const infoBox = document.createElement("div");
+      infoBox.classList.add("info-box");
+  
+      const formattedTimestamp = formatTimestamp(timestamp);
+  
+      const statusText = document.createElement("p");
+      statusText.textContent = `Status: ${status}`;
+      infoBox.appendChild(statusText);
+  
+      const timestampText = document.createElement("p");
+      timestampText.textContent = `Timestamp: ${formattedTimestamp}`;
+      infoBox.appendChild(timestampText);
+  
+      return infoBox;
     }
-
-    infoBox.textContent = statusText;
-
-    return infoBox;
-};
-
-// Function to generate status bars
-const generateStatusBars = async (sectionId, folderName) => {
-    const section = document.getElementById(sectionId);
-
-    if (!section) {
-        console.error(`Section not found for ${folderName}`);
-        return;
+  
+    // Function to update the status bars for a given section
+    async function updateStatusBars(sectionId) {
+      const section = document.getElementById(sectionId);
+      const statusBarsContainer = section.querySelector(".status-bars");
+  
+      // Clear existing content
+      statusBarsContainer.innerHTML = "";
+  
+      // Fetch JSON data for the last 30 days
+      const jsonPromises = [];
+      for (let i = numBars - 1; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const formattedDate = getFormattedDate(date);
+        const jsonDataPath = `assets/data/${sectionId.split("-")[0]}/${formattedDate}.json`;
+  
+        const jsonPromise = fetch(jsonDataPath)
+          .then((response) => response.json())
+          .catch(() => null);
+  
+        jsonPromises.push(jsonPromise);
+      }
+  
+      const jsons = await Promise.all(jsonPromises);
+  
+      // Iterate through the last 30 days of data
+      for (let i = numBars - 1; i >= 0; i--) {
+        const data = jsons[i];
+        const status = data ? hasDownStatus(data) ? "DOWN" : "UP" : "UNKNOWN"; // Use "UNKNOWN" for missing data
+  
+        // Create status bar
+        const statusBar = createStatusBar(status);
+  
+        // Create info box
+        const infoBox = createInfoBox(status, new Date());
+  
+        // Append status bar to container
+        statusBarsContainer.appendChild(statusBar);
+  
+        // Add event listener to show info box on hover
+        statusBar.addEventListener("mouseover", function (event) {
+          const rect = statusBar.getBoundingClientRect();
+          infoBox.style.left = `${rect.left}px`;
+          infoBox.style.top = `${rect.top - 50}px`;
+  
+          // Set info box content
+          infoBox.innerHTML = `<p>Status: ${status}</p><p>Timestamp: ${formatTimestamp(new Date())}</p>`;
+  
+          // Append info box to body
+          document.body.appendChild(infoBox);
+        });
+  
+        // Remove info box on mouseout
+        statusBar.addEventListener("mouseout", function () {
+          document.body.removeChild(infoBox);
+        });
+      }
     }
-
-    // Fetch status data for the corresponding website
-    const statusData = await getStatusData(folderName);
-
-    // Group status entries by day
-    const statusByDay = statusData.reduce((acc, entry) => {
-        const day = new Date(entry.timestamp).toLocaleDateString();
-        if (!acc[day]) {
-            acc[day] = { status: entry.status, start: entry.timestamp, end: entry.timestamp };
-        } else if (entry.status === 'DOWN') {
-            // If consecutive DOWN events, update the end timestamp
-            if (acc[day].status === 'DOWN') {
-                acc[day].end = entry.timestamp;
-            } else {
-                // If previous status was UP, start a new DOWN event
-                acc[day] = { status: 'DOWN', start: entry.timestamp, end: entry.timestamp };
-            }
-        }
-        return acc;
-    }, {});
-
-    // Find the bars container within the section
-    const barsContainer = section.querySelector('.status-bars');
-
-    if (!barsContainer) {
-        console.error(`Bars container not found for ${folderName}`);
-        return;
+  
+    // Check if there is at least one "DOWN" status in the data
+    function hasDownStatus(data) {
+      return data.some(entry => entry.status === "DOWN");
     }
-
-    // Loop through the last 90 days and create bars accordingly
-    const currentDate = new Date();
-    for (let i = 89; i >= 0; i--) {
-        const day = new Date(currentDate);
-        day.setDate(currentDate.getDate() - i);
-
-        const formattedDay = day.toLocaleDateString();
-        const { status, start, end } = statusByDay[formattedDay] || { status: 'MISSING' };
-
-        const bar = document.createElement('div');
-        bar.classList.add('status-bar');
-
-        if (status === 'DOWN') {
-            bar.classList.add('orange-bar');
-        } else if (status === 'UP') {
-            bar.classList.add('green-bar');
-        } else {
-            bar.classList.add('grey-bar');
-        }
-
-        barsContainer.appendChild(bar);
-
-        // Handle hover events
-        handleHover(bar, status, start, end);
-    }
-};
-
-// Function to handle hover events
-const handleHover = (bar, status, start, end) => {
-    bar.addEventListener('mouseover', () => {
-        const infoBox = createInfoBox(status, start, end);
-        bar.appendChild(infoBox);
+  
+    // Fetch and update status bars for each section
+    const sections = ["main-website-section", "dashboard-website-section", "panel-website-section"];
+  
+    sections.forEach((sectionId) => {
+      updateStatusBars(sectionId);
     });
-
-    bar.addEventListener('mouseout', () => {
-        const infoBox = bar.querySelector('.info-box');
-        if (infoBox) {
-            infoBox.remove();
-        }
-    });
-};
-
-// Call the function for each website section after DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    generateStatusBars('main-website-section', 'main');
-    generateStatusBars('dashboard-website-section', 'dashboard');
-    generateStatusBars('panel-website-section', 'panel');
-});
+  
+    // Function to format timestamp to 12hr time and DD-MM-YYYY format
+    function formatTimestamp(timestamp) {
+      const dateObj = new Date(timestamp);
+      const hours = dateObj.getHours();
+      const minutes = dateObj.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+  
+      const formattedTime = `${(hours % 12) || 12}:${String(minutes).padStart(2, "0")} ${ampm}`;
+      const formattedDate = `${String(dateObj.getDate()).padStart(2, "0")}-${String(dateObj.getMonth() + 1).padStart(2, "0")}-${dateObj.getFullYear()}`;
+  
+      return `${formattedTime} on ${formattedDate}`;
+    }
+  
+    // Function to get formatted date for the file path
+    function getFormattedDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+  
+      return `${day}${month}${year}`;
+    }
+  });
+  
