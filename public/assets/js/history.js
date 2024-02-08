@@ -87,11 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const card = createCard(status, getStatusColor(status));
 
             if (resolvedTimestamp) {
-            card.innerHTML += `  Started: ${formatTimestamp(startTimestamp)}, Ended: ${formatTimestamp(endTimestamp)}`;
+            card.innerHTML += `  Started: ${formatTimestamp(startTimestamp)}`;
             card.innerHTML += `<br>Resolved at: ${formatTimestamp(resolvedTimestamp)}`;
             } else {
             // If resolving time isn't found, show ongoing downtime
-            card.innerHTML += `  Started: ${formatTimestamp(startTimestamp)}, Ongoing Downtime`;
+            card.innerHTML += `Temporary outage started at ${formatTimestamp(startTimestamp)}`;
             }
 
             timelineContainer.appendChild(card);
