@@ -31,7 +31,7 @@ const createInfoBox = (status, start, end) => {
             statusText = `Site was DOWN from ${new Date(start).toLocaleString()} to ${new Date(end).toLocaleString()}`;
             break;
         default:
-            statusText = status;
+            statusText = 'Data unavailable';
     }
 
     infoBox.textContent = statusText;
@@ -40,7 +40,7 @@ const createInfoBox = (status, start, end) => {
 };
 
 // Function to generate status bars
-const generateStatusBars = async (sectionId, folderName, numDays) => {
+const generateStatusBars = async (sectionId, folderName) => {
     const section = document.getElementById(sectionId);
 
     if (!section) {
@@ -57,9 +57,11 @@ const generateStatusBars = async (sectionId, folderName, numDays) => {
         if (!acc[day]) {
             acc[day] = { status: entry.status, start: entry.timestamp, end: entry.timestamp };
         } else if (entry.status === 'DOWN') {
+            // If consecutive DOWN events, update the end timestamp
             if (acc[day].status === 'DOWN') {
                 acc[day].end = entry.timestamp;
             } else {
+                // If previous status was UP, start a new DOWN event
                 acc[day] = { status: 'DOWN', start: entry.timestamp, end: entry.timestamp };
             }
         }
@@ -74,9 +76,9 @@ const generateStatusBars = async (sectionId, folderName, numDays) => {
         return;
     }
 
-    // Loop through the last numDays and create bars accordingly
+    // Loop through the last 90 days and create bars accordingly
     const currentDate = new Date();
-    for (let i = numDays - 1; i >= 0; i--) {
+    for (let i = 89; i >= 0; i--) {
         const day = new Date(currentDate);
         day.setDate(currentDate.getDate() - i);
 
@@ -91,24 +93,13 @@ const generateStatusBars = async (sectionId, folderName, numDays) => {
         } else if (status === 'UP') {
             bar.classList.add('green-bar');
         } else {
-            // Check if data is missing or there's an error loading the data
-            const isError = status === 'ERROR';
-            const isDataUnavailable = !statusData.some(entry => new Date(entry.timestamp).toLocaleDateString() === formattedDay);
-
-            if (isError) {
-                bar.classList.add('yellow-bar');
-            } else if (isDataUnavailable) {
-                bar.classList.add('grey-bar');
-            } else {
-                bar.classList.add('yellow-bar'); // Change color for other unknown cases
-            }
-
-            // Set appropriate hover text
-            const hoverText = isError ? 'ERROR' : isDataUnavailable ? 'Data unavailable' : 'Unknown issue';
-            handleHover(bar, hoverText, start, end);
+            bar.classList.add('grey-bar');
         }
 
         barsContainer.appendChild(bar);
+
+        // Handle hover events
+        handleHover(bar, status, start, end);
     }
 };
 
@@ -129,7 +120,7 @@ const handleHover = (bar, status, start, end) => {
 
 // Call the function for each website section after DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    generateStatusBars('main-website-section', 'main', 30); // Show bars for the last 30 days
-    generateStatusBars('dashboard-website-section', 'dashboard', 30); // Show bars for the last 30 days
-    generateStatusBars('panel-website-section', 'panel', 30); // Show bars for the last 30 days
+    generateStatusBars('main-website-section', 'main');
+    generateStatusBars('dashboard-website-section', 'dashboard');
+    generateStatusBars('panel-website-section', 'panel');
 });
