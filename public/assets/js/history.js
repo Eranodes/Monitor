@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             card.innerHTML += `<br>Resolved at: ${formatTimestamp(resolvedTimestamp)}`;
             } else {
             // If resolving time isn't found, show ongoing downtime
-            card.innerHTML += `Temporary outage started at ${formatTimestamp(startTimestamp)}`;
+            card.innerHTML += `  Temporary outage started at ${formatTimestamp(startTimestamp)}`;
             }
 
             timelineContainer.appendChild(card);
