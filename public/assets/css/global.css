@@ -87,6 +87,12 @@ main {
     flex: 1;
 }
 
+section {
+    margin-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 /* Footer styles */
 footer {
     background-color: var(--footer-bg-color);
