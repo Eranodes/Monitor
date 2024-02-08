@@ -47,11 +47,46 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         if (downTimes && downTimes.length > 0) {
             const timesText = document.createElement("p");
-            timesText.textContent = `Down Times: ${downTimes.slice(0, 3).join(", ")}`;
+            timesText.textContent = `Down Times: ${formatDownTimes(downTimes)}`;
             infoBox.appendChild(timesText);
         }
 
         return infoBox;
+    }
+
+    function formatDownTimes(downTimes) {
+        const formattedTimes = [];
+        let consecutiveDowns = [];
+
+        for (const time of downTimes) {
+            const isConsecutive = consecutiveDowns.length > 0 && time === consecutiveDowns[consecutiveDowns.length - 1] + 5;
+
+            if (isConsecutive) {
+                consecutiveDowns.push(time);
+            } else {
+                if (consecutiveDowns.length > 1) {
+                    formattedTimes.push(`${consecutiveDowns[0]} to ${consecutiveDowns[consecutiveDowns.length - 1]}`);
+                } else {
+                    formattedTimes.push(consecutiveDowns[0]);
+                }
+
+                consecutiveDowns = [time];
+            }
+        }
+
+        // Handle the last set of consecutive downs
+        if (consecutiveDowns.length > 1) {
+            formattedTimes.push(`${consecutiveDowns[0]} to ${consecutiveDowns[consecutiveDowns.length - 1]}`);
+        } else if (consecutiveDowns.length === 1) {
+            formattedTimes.push(consecutiveDowns[0]);
+        }
+
+        const maxToShow = 5;
+        if (formattedTimes.length > maxToShow) {
+            return formattedTimes.slice(0, maxToShow).join(", ") + " ...";
+        } else {
+            return formattedTimes.join(", ");
+        }
     }
 
     // Function to show loader in a section
@@ -124,7 +159,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Get times when "DOWN" status was found
     function getDownTimes(data) {
-        return data ? data.filter(entry => entry.status === "DOWN").map(entry => formatTimestamp(entry.timestamp, "HH:mm")) : [];
+        return data ? data.filter(entry => entry.status === "DOWN").map(entry => formatTimestamp(entry.timestamp, "HH:mm A")) : [];
     }
 
     // Show info box with date and down times
@@ -167,13 +202,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         const month = dateObj.getMonth() + 1;
         const year = dateObj.getFullYear();
 
-        const formattedTime = `${(hours % 12) || 12}:${String(minutes).padStart(2, "0")}`;
+        const formattedTime = `${(hours % 12) || 12}:${String(minutes).padStart(2, "0")} ${hours >= 12 ? 'PM' : 'AM'}`;
         const formattedDate = `${String(day).padStart(2, "0")}-${String(month).padStart(2, "0")}-${year}`;
 
         return format.replace("DD", String(day).padStart(2, "0"))
             .replace("MM", String(month).padStart(2, "0"))
             .replace("YYYY", year)
-            .replace("HH:mm", formattedTime);
+            .replace("HH:mm A", formattedTime);
     }
 
     // Function to get formatted date for the file path
