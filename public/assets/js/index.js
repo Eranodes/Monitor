@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const numBars = 30;
   
     // Function to create a status bar element
-    function createStatusBar(status) {
+    function createStatusBar(status, date, downTimes) {
       const statusBar = document.createElement("div");
       statusBar.classList.add("status-bar");
   
@@ -15,23 +15,34 @@ document.addEventListener("DOMContentLoaded", function () {
         statusBar.classList.add("grey-bar");
       }
   
+      // Add event listener to show info box on hover
+      statusBar.addEventListener("mouseover", function () {
+        showInfoBox(date, downTimes);
+      });
+  
+      // Remove info box on mouseout
+      statusBar.addEventListener("mouseout", function () {
+        removeInfoBox();
+      });
+  
       return statusBar;
     }
   
     // Function to create an info box element
-    function createInfoBox(status, timestamp) {
+    function createInfoBox(date, downTimes) {
       const infoBox = document.createElement("div");
       infoBox.classList.add("info-box");
   
-      const formattedTimestamp = formatTimestamp(timestamp);
+      const formattedDate = formatTimestamp(date, "DD-MM-YYYY");
+      const dateText = document.createElement("p");
+      dateText.textContent = `Date: ${formattedDate}`;
+      infoBox.appendChild(dateText);
   
-      const statusText = document.createElement("p");
-      statusText.textContent = `Status: ${status}`;
-      infoBox.appendChild(statusText);
-  
-      const timestampText = document.createElement("p");
-      timestampText.textContent = `Timestamp: ${formattedTimestamp}`;
-      infoBox.appendChild(timestampText);
+      if (downTimes && downTimes.length > 0) {
+        const timesText = document.createElement("p");
+        timesText.textContent = `Down Times: ${downTimes.slice(0, 3).join(", ")}`;
+        infoBox.appendChild(timesText);
+      }
   
       return infoBox;
     }
@@ -46,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
       // Fetch JSON data for the last 30 days
       const jsonPromises = [];
-      for (let i = numBars - 1; i >= 0; i--) {
+      for (let i = 0; i < numBars; i++) {  // Change the iteration order
         const date = new Date();
         date.setDate(date.getDate() - i);
         const formattedDate = getFormattedDate(date);
@@ -61,43 +72,47 @@ document.addEventListener("DOMContentLoaded", function () {
   
       const jsons = await Promise.all(jsonPromises);
   
-      // Iterate through the last 30 days of data
+      // Iterate through the last 30 days of data in reverse order
       for (let i = numBars - 1; i >= 0; i--) {
         const data = jsons[i];
         const status = data ? hasDownStatus(data) ? "DOWN" : "UP" : "UNKNOWN"; // Use "UNKNOWN" for missing data
   
-        // Create status bar
-        const statusBar = createStatusBar(status);
+        // Get date and down times for the info box
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const downTimes = getDownTimes(data);
   
-        // Create info box
-        const infoBox = createInfoBox(status, new Date());
+        // Create status bar
+        const statusBar = createStatusBar(status, date, downTimes);
   
         // Append status bar to container
         statusBarsContainer.appendChild(statusBar);
-  
-        // Add event listener to show info box on hover
-        statusBar.addEventListener("mouseover", function (event) {
-          const rect = statusBar.getBoundingClientRect();
-          infoBox.style.left = `${rect.left}px`;
-          infoBox.style.top = `${rect.top - 50}px`;
-  
-          // Set info box content
-          infoBox.innerHTML = `<p>Status: ${status}</p><p>Timestamp: ${formatTimestamp(new Date())}</p>`;
-  
-          // Append info box to body
-          document.body.appendChild(infoBox);
-        });
-  
-        // Remove info box on mouseout
-        statusBar.addEventListener("mouseout", function () {
-          document.body.removeChild(infoBox);
-        });
       }
     }
   
     // Check if there is at least one "DOWN" status in the data
     function hasDownStatus(data) {
       return data.some(entry => entry.status === "DOWN");
+    }
+  
+    // Get times when "DOWN" status was found
+    function getDownTimes(data) {
+      return data ? data.filter(entry => entry.status === "DOWN").map(entry => formatTimestamp(entry.timestamp, "HH:mm")) : [];
+    }
+  
+    // Show info box with date and down times
+    function showInfoBox(date, downTimes) {
+      // Create info box
+      const infoBox = createInfoBox(date, downTimes);
+  
+      // Append info box to body
+      document.body.appendChild(infoBox);
+    }
+  
+    // Remove info box
+    function removeInfoBox() {
+      const infoBoxes = document.querySelectorAll(".info-box");
+      infoBoxes.forEach(box => box.parentNode.removeChild(box));
     }
   
     // Fetch and update status bars for each section
@@ -108,16 +123,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   
     // Function to format timestamp to 12hr time and DD-MM-YYYY format
-    function formatTimestamp(timestamp) {
+    function formatTimestamp(timestamp, format) {
       const dateObj = new Date(timestamp);
       const hours = dateObj.getHours();
       const minutes = dateObj.getMinutes();
-      const ampm = hours >= 12 ? "PM" : "AM";
+      const day = dateObj.getDate();
+      const month = dateObj.getMonth() + 1;
+      const year = dateObj.getFullYear();
   
-      const formattedTime = `${(hours % 12) || 12}:${String(minutes).padStart(2, "0")} ${ampm}`;
-      const formattedDate = `${String(dateObj.getDate()).padStart(2, "0")}-${String(dateObj.getMonth() + 1).padStart(2, "0")}-${dateObj.getFullYear()}`;
+      const formattedTime = `${(hours % 12) || 12}:${String(minutes).padStart(2, "0")}`;
+      const formattedDate = `${String(day).padStart(2, "0")}-${String(month).padStart(2, "0")}-${year}`;
   
-      return `${formattedTime} on ${formattedDate}`;
+      return format.replace("DD", String(day).padStart(2, "0"))
+                   .replace("MM", String(month).padStart(2, "0"))
+                   .replace("YYYY", year)
+                   .replace("HH:mm", formattedTime);
     }
   
     // Function to get formatted date for the file path
