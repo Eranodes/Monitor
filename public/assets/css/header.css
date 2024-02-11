@@ -1,4 +1,3 @@
-
 /* Header section styles */
 header {
     background-color: var(--header-bg-color);
@@ -28,19 +27,22 @@ nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 10px;
+    display: block;
+    margin-bottom: 10px;
     color: white;
     transition: transform 0.3s ease-in-out;
-    border-right: 1px solid white; 
-    padding-right: 10px; 
+    border-bottom: 1px solid white; 
+    padding-bottom: 5px; 
 }
 
 nav ul li:last-child {
-    border-right: none;
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 nav ul li:hover {
@@ -50,4 +52,23 @@ nav ul li:hover {
 nav a {
     text-decoration: none;
     color: white;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+    nav {
+        position: static;
+        width: 100%;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        display: inline-block;
+        margin-right: 0;
+        margin-bottom: 5px;
+        border-bottom: none;
+    }
 }

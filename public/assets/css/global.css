@@ -39,3 +39,16 @@ section {
     padding-left: 30px;
     padding-right: 30px;
 }
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

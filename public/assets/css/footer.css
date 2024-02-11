@@ -1,4 +1,4 @@
-/* Footer styles */
+/* Default styles */
 footer {
     background-color: var(--footer-bg-color);
     color: var(--text-color);
@@ -9,4 +9,11 @@ footer {
 
 footer a {
     color: var(--link-color);
+}
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 600px) {
+    footer {
+        padding: 10px;
+    }
 }
