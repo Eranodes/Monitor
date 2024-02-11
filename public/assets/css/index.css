@@ -13,7 +13,7 @@
 }
 
 .orange-bar {
-    background-color: #ff9d00;
+    background-color: #ed5801;
 }
 
 .green-bar {
@@ -21,13 +21,12 @@
 }
 
 .grey-bar {
-    background-color: #D3D3D3;
+    background-color: #adadad;
 }
 
 .info-box {
-    background-color: #1799f07b;
+    background-color: #9cb8cbba;
     padding: 10px;
-    border: 1px solid #888787;
     border-radius: 2px;
     z-index: 1;
     max-width: 300px;
