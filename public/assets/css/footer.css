@@ -1,0 +1,12 @@
+/* Footer styles */
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--text-color);
+    padding: 15px;
+    text-align: center;
+    border-radius: var(--border-radius);
+}
+
+footer a {
+    color: var(--link-color);
+}

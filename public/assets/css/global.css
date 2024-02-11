@@ -29,59 +29,6 @@ h2 {
     color: #888787;
 }
 
-/* Header section styles */
-header {
-    background-color: var(--header-bg-color);
-    color: var(--text-color);
-    padding: 15px;
-    text-align: center;
-    position: relative;
-    border-bottom: 2px solid var(--border-color);
-    border-radius: var(--border-radius);
-}
-
-/* Navigation styles */
-nav {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--nav-bg-gradient);
-    padding: 10px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    text-align: center;
-    color: white;
-    box-shadow: 0 4px 8px var(--box-shadow-color);
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 10px;
-    color: white;
-    transition: transform 0.3s ease-in-out;
-    border-right: 1px solid white; 
-    padding-right: 10px; 
-}
-
-nav ul li:last-child {
-    border-right: none;
-}
-
-nav ul li:hover {
-    transform: translateY(-3px);
-}
-
-nav a {
-    text-decoration: none;
-    color: white;
-}
-
 /* Main content area */
 main {
     flex: 1;
@@ -91,55 +38,4 @@ section {
     margin-bottom: 20px;
     padding-left: 30px;
     padding-right: 30px;
-}
-
-/* Footer styles */
-footer {
-    background-color: var(--footer-bg-color);
-    color: var(--text-color);
-    padding: 15px;
-    text-align: center;
-    border-radius: var(--border-radius);
-}
-
-footer a {
-    color: var(--link-color);
-}
-
-/* Media Query for Mobile Devices */
-@media only screen and (max-width: 600px) {
-    body {
-        font-size: 14px;
-    }
-
-    header, nav, footer {
-        border-radius: 0;
-    }
-
-    nav {
-        top: 0;
-        position: static;
-        width: 100%;
-        text-align: center;
-        box-shadow: none;
-    }
-
-    nav ul li {
-        display: block;
-        margin: 5px 0;
-        color: white;
-        transform: none;
-        transition: none;
-        border-right: none; 
-        border-bottom: 1px solid white;
-        padding: 10px 0;
-    }
-
-    nav ul li:last-child {
-        border-bottom: none; 
-    }
-
-    footer a {
-        color: var(--link-color);
-    }
 }
