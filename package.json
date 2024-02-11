@@ -11,7 +11,7 @@
     "helmet": "^7.1.0"
   },
   "name": "monitor",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Monitoring website for activenodes",
   "main": "serve.js",
   "scripts": {
