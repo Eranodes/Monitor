@@ -1,9 +1,9 @@
 /* Root variables for consistent theming */
 :root {
     --body-bg-color: #041220;
-    --header-bg-color: #031221;
+    --header-bg-color: #576e8641;
     --nav-bg-gradient: linear-gradient(to right, #052341, #071f37);
-    --footer-bg-color: var(--body-bg-color);
+    --footer-bg-color: #576e8641;
     --text-color: rgb(169, 169, 169);
     --link-color: blue;
     --border-color: #385c81;
