@@ -32,18 +32,23 @@ nav ul {
 nav ul li {
     margin: 0 10px;
     color: white;
-    transition: transform 0.3s ease-in-out;
-    border-bottom: 1px solid white; 
-    padding-bottom: 5px; 
+    position: relative;
 }
 
-nav ul li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+nav ul li::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease-in-out;
 }
 
-nav ul li:hover {
-    transform: translateY(-3px);
+nav ul li:hover::after {
+    width: 100%;
 }
 
 nav a {
@@ -67,6 +72,9 @@ nav a {
     nav ul li {
         display: block;
         margin: 5px 0;
-        border-bottom: 1px solid white;
+    }
+
+    nav ul li::after {
+        content: none; /* Remove underline for small screens */
     }
 }
