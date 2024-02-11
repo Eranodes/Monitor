@@ -11,9 +11,6 @@ header {
 
 /* Navigation styles */
 nav {
-    position: absolute;
-    top: 100%;
-    right: 0;
     background: var(--nav-bg-gradient);
     padding: 10px;
     border-radius: var(--border-radius);
@@ -29,11 +26,11 @@ nav ul {
     margin: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 nav ul li {
-    display: block;
-    margin-bottom: 10px;
+    margin: 0 10px;
     color: white;
     transition: transform 0.3s ease-in-out;
     border-bottom: 1px solid white; 
@@ -59,16 +56,17 @@ nav a {
     nav {
         position: static;
         width: 100%;
+        box-sizing: border-box;
     }
 
     nav ul {
         flex-direction: column;
+        align-items: center;
     }
 
     nav ul li {
-        display: inline-block;
-        margin-right: 0;
-        margin-bottom: 5px;
-        border-bottom: none;
+        display: block;
+        margin: 5px 0;
+        border-bottom: 1px solid white;
     }
 }
