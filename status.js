@@ -1,10 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const dotenv = require('dotenv');
+require('dotenv').config;
 const axios = require('axios');
 const logger = require('./logger');
-
-dotenv.config();
 
 const axiosInstance = axios.create({
   headers: {

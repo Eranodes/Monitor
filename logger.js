@@ -1,9 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const dotenv = require('dotenv');
+require('dotenv').config;
 const FormData = require('form-data');
-
-dotenv.config();
 
 const LOG_LEVELS = {
   INFO: 'info',
