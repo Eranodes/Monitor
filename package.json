@@ -12,7 +12,7 @@
     "https": "^1.0.0"
   },
   "name": "monitor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Monitoring website for EraNodes",
   "main": "serve.js",
   "scripts": {
@@ -24,5 +24,14 @@
     "monitor"
   ],
   "author": "G9 Aerospace",
-  "license": "ISC"
+  "license": "MIT",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eranodes/Monitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Eranodes/Monitor/issues"
+  },
+  "homepage": "https://github.com/Eranodes/Monitor#readme"
 }

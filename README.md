@@ -31,7 +31,7 @@ To get started with EraNodes Monitor, follow these simple installation steps:
         MAIN_WEBSITE=eranodes.xyz
         DASHBOARD_WEBSITE=freedash.eranodes.xyz
         PANEL_WEBSITE=panel.eranodes.xyz
-        DISCORD_WEBHOOK=<https://discord.com/api/webhooks/{webhook.id}/{webhook.token}>
+        DISCORD_WEBHOOK=https://discord.com/api/webhooks/{webhook.id}/{webhook.token}
         ```
 
         Ensure each variable is assigned its correct value.
