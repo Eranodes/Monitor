@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const logger = require('./logger');
@@ -10,9 +12,17 @@ const app = express();
 const port1 = process.env.PORT || 3000;
 const port2 = process.env.PORT_2 || 3001;
 
+// Load SSL certificate and private key
+const privateKey = fs.readFileSync('ssl/private-key.pem', 'utf8');
+const certificate = fs.readFileSync('ssl/certificate.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
-app.listen(port1, () => {
+// Create an HTTPS server
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port1, () => {
   logger.info(`
   ███▄ ▄███▓ ▒█████   ███▄    █  ██▓▄▄▄█████▓ ▒█████   ██▀███  
   ▓██▒▀█▀ ██▒▒██▒  ██▒ ██ ▀█   █ ▓██▒▓  ██▒ ▓▒▒██▒  ██▒▓██ ▒ ██▒
@@ -31,10 +41,10 @@ app.listen(port1, () => {
   -----------------------
   Please read the license and readme.
   Ensure your .env file is properly filled.
-  Using ${port1} for serving status page and ${port2} for querying the eranodes sites!
+  Using ${port1} for serving the status page and ${port2} for querying the eranodes sites!
   For support, join our Discord server: https://discord.gg/jhju3spUbE
   -----------------------
-  Server is running on port: ${port1}
+  Server is running on port: ${port1} (HTTPS)
   Version: ${packageJson.version}`);
   
   // Run the status check script on startup
