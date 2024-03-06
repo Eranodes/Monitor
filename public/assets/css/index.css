@@ -10,10 +10,11 @@
     margin-right: 2px;
     position: relative;
     height: 30px;
+    border-radius: 0.5px;
 }
 
 .orange-bar {
-    background-color: #ed5801;
+    background-color: #f56614;
 }
 
 .green-bar {
@@ -21,7 +22,7 @@
 }
 
 .grey-bar {
-    background-color: #adadad;
+    background-color: #bfbfbfa2;
 }
 
 .info-box {

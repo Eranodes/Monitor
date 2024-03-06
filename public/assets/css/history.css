@@ -4,11 +4,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0;
+  align-items: center;
 }
 
 .timeline-column {
   flex: 1;
   margin: 0 10px;
+  align-items: center;
 }
 
 .card {
@@ -16,6 +18,9 @@
   border: 1px solid #ddd;
   padding: 10px;
   margin-bottom: 10px;
+  max-width: 200px;
+  align-items: center;
+  align-self: center;
 }
 
 .card-green {
@@ -23,7 +28,7 @@
 }
 
 .card-red {
-  background-color: #ffcdd2;
+  background-color: #f6aab1;
 }
 
 .card-grey {

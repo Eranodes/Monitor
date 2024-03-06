@@ -1,24 +1,31 @@
 /* Root variables for consistent theming */
 :root {
-    --body-bg-color: #041220;
-    --header-bg-color: #576e8641;
+    --body-bg-color: #000000;
+    --header-bg-color: #55656b99;
     --nav-bg-gradient: linear-gradient(to right, #052341, #071f37);
     --footer-bg-color: #576e8641;
-    --text-color: rgb(169, 169, 169);
-    --link-color: blue;
+
+    --text-color: rgb(255, 255, 255);
+    --link-color: rgb(76, 76, 240);
+    
     --border-color: #385c81;
-    --border-radius: 5px;
+    --border-radius: 2px;
+
     --box-shadow-color: rgba(0, 0, 0, 0.2);
+
+    --tiny-width: 5px;
+    --small-width: 10px;
+    --medium-wdith: 20px;
+    --large-width: 30px;
 }
 
 /* General styling for the entire page */
 body {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: var(--body-bg-color);
-    margin: 10px;
-    padding: 20px;
+    margin: var(--large-width);
+    padding: var(--medium-wdith);
     font-family: 'Arial', sans-serif;
     overflow: auto;
 }
@@ -35,9 +42,8 @@ main {
 }
 
 section {
-    margin-bottom: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
+    margin: var(--tiny-width);
+    border-radius: var(--border-radius);
 }
 
 /* Responsive Styles */
