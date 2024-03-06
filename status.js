@@ -20,7 +20,7 @@ const axiosInstance = axios.create({
 const discordWebhookUrl = process.env.DISCORD_WEBHOOK;
 
 const sendDiscordNotification = (websiteName, status) => {
-  if (discordWebhookUrl) {
+  if (discordWebhookUrl && status === 'DOWN') {
     const embed = {
       title: 'Website Status Update',
       description: `${websiteName}: ${status}`,

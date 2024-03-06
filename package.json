@@ -12,7 +12,7 @@
     "https": "^1.0.0"
   },
   "name": "monitor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Monitoring website for EraNodes",
   "main": "serve.js",
   "scripts": {
