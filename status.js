@@ -45,17 +45,40 @@ const checkWebsiteStatus = async (websiteUrl, websiteName, folderName) => {
     logger.info(`Checking status of ${websiteName} (${websiteUrl})...`);
 
     const response = await axiosInstance.get(`http://${websiteUrl}`);
-    const status = response.status === 200 ? 'UP' : 'DOWN';
+    let status;
+
+    if (response.status === 200) {
+      status = 'UP';
+    } else if (response.status === 502) {
+      logger.warn(`${websiteName} (${websiteUrl}) returned a 502 status. Skipping JSON log.`);
+      return; // Do nothing for 502 status
+    } else {
+      status = 'DOWN';
+    }
 
     // Log status to data file
     logStatus(websiteName, status, folderName);
-    
+
     // Send Discord notification
     sendDiscordNotification(websiteName, status);
   } catch (error) {
-    // Append full response details to sites.log for the offline case
-    const logMessage = `${new Date().toISOString()} - ${websiteName} (${websiteUrl}) is DOWN. Error: ${error.message}`;
-    logger.error(logMessage);
+    // Handle specific errors
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // other than 2xx (e.g., 404, 500).
+        logger.error(`Server responded with status ${error.response.status} for ${websiteName} (${websiteUrl}).`);
+      } else if (error.request) {
+        // The request was made but no response was received.
+        logger.error(`No response received for ${websiteName} (${websiteUrl}).`);
+      } else {
+        // Something happened in setting up the request that triggered an Error.
+        logger.error(`Error setting up request for ${websiteName} (${websiteUrl}): ${error.message}`);
+      }
+    } else {
+      // Handle other types of errors (e.g., network issues, timeouts)
+      logger.error(`Error checking status for ${websiteName} (${websiteUrl}): ${error.message}`);
+    }
 
     // Log status to data file for DOWN status
     logStatus(websiteName, 'DOWN', folderName);
