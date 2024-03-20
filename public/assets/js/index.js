@@ -148,9 +148,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Check if there is at least one "DOWN" status in the data
     function hasDownStatus(data) {
-        return data.some(entry => entry.status === "DOWN");
+        let consecutiveDowns = 0;
+    
+        for (const entry of data) {
+            if (entry.status === "DOWN") {
+                consecutiveDowns++;
+                if (consecutiveDowns >= 4) {
+                    return true;
+                }
+            } else {
+                consecutiveDowns = 0; // Reset consecutiveDowns if status is UP
+            }
+        }
+    
+        return false;
     }
-
+    
     // Get times when "DOWN" status was found
     function getDownTimes(data) {
         return data ? data.filter(entry => entry.status === "DOWN").map(entry => formatTimestamp(entry.timestamp, "HH:mm A")) : [];
