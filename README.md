@@ -26,7 +26,7 @@ To get started with EraNodes Monitor, follow these simple installation steps:
     - Add the following lines with the corresponding values:
 
         ```env
-        PORT=<PORT TO BE USED FOR SERVING>
+        PORT_1=<PORT TO BE USED FOR SERVING>
         PORT_2=<PORT TO BE USED FOR QUERYING>
         MAIN_WEBSITE=eranodes.xyz
         DASHBOARD_WEBSITE=freedash.eranodes.xyz

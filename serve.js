@@ -11,7 +11,7 @@ const packageJson = require('./package.json');
 dotenv.config();
 
 const app = express();
-const port1 = process.env.PORT || 3000;
+const port1 = process.env.PORT_1 || 3000;
 const port2 = process.env.PORT_2 || 3001;
 const useHttps = process.env.USE_HTTPS === 'true';
 
@@ -19,28 +19,29 @@ app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] })
 
 // Start Message
 const startMessage = `
-  ███▄ ▄███▓ ▒█████   ███▄    █  ██▓▄▄▄█████▓ ▒█████   ██▀███  
-  ▓██▒▀█▀ ██▒▒██▒  ██▒ ██ ▀█   █ ▓██▒▓  ██▒ ▓▒▒██▒  ██▒▓██ ▒ ██▒
-  ▓██    ▓██░▒██░  ██▒▓██  ▀█ ██▒▒██▒▒ ▓██░ ▒░▒██░  ██▒▓██ ░▄█ ▒
-  ▒██    ▒██ ▒██   ██░▓██▒  ▐▌██▒░██░░ ▓██▓ ░ ▒██   ██░▒██▀▀█▄  
-  ▒██▒   ░██▒░ ████▓▒░▒██░   ▓██░░██░  ▒██▒ ░ ░ ████▓▒░░██▓ ▒██▒
-  ░ ▒░   ░  ░░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ░▓    ▒ ░░   ░ ▒░▒░▒░ ░ ▒▓ ░▒▓░
-  ░  ░      ░  ░ ▒ ▒░ ░ ░░   ░ ▒░ ▒ ░    ░      ░ ▒ ▒░   ░▒ ░ ▒░
-  ░      ░   ░ ░ ░ ▒     ░   ░ ░  ▒ ░  ░      ░ ░ ░ ▒    ░░   ░ 
-           ░       ░ ░           ░  ░               ░ ░     ░     
-                                                                                              
------------------------
-Author: G9 Aerospace
-Website: https://g9aerospace.in
-Repository: https://github.com/Eranodes/Monitor
------------------------
+\x1b[1m\x1b[36m  ███▄ ▄███▓ ▒█████   ███▄    █  ██▓▄▄▄█████▓ ▒█████   ██▀███  \x1b[0m
+\x1b[1m\x1b[36m  ▓██▒▀█▀ ██▒▒██▒  ██▒ ██ ▀█   █ ▓██▒▓  ██▒ ▓▒▒██▒  ██▒▓██ ▒ ██▒\x1b[0m
+\x1b[1m\x1b[36m  ▓██    ▓██░▒██░  ██▒▓██  ▀█ ██▒▒██▒▒ ▓██░ ▒░▒██░  ██▒▓██ ░▄█ ▒\x1b[0m
+\x1b[1m\x1b[36m  ▒██    ▒██ ▒██   ██░▓██▒  ▐▌██▒░██░░ ▓██▓ ░ ▒██   ██░▒██▀▀█▄  \x1b[0m
+\x1b[1m\x1b[36m  ▒██▒   ░██▒░ ████▓▒░▒██░   ▓██░░██░  ▒██▒ ░ ░ ████▓▒░░██▓ ▒██▒\x1b[0m
+\x1b[1m\x1b[36m  ░ ▒░   ░  ░░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ░▓    ▒ ░░   ░ ▒░▒░▒░ ░ ▒▓ ░▒▓░\x1b[0m
+\x1b[1m\x1b[36m  ░  ░      ░  ░ ▒ ▒░ ░ ░░   ░ ▒░ ▒ ░    ░      ░ ▒ ▒░   ░▒ ░ ▒░\x1b[0m
+\x1b[1m\x1b[36m  ░      ░   ░ ░ ░ ▒     ░   ░ ░  ▒ ░  ░      ░ ░ ░ ▒    ░░   ░ \x1b[0m
+\x1b[1m\x1b[36m           ░       ░ ░           ░  ░               ░ ░     ░     \x1b[0m
+
+\x1b[1m\x1b[32m-----------------------
+Author: \x1b[0m\x1b[1m\x1b[35mG9 Aerospace\x1b[0m
+\x1b[1m\x1b[32mWebsite: \x1b[0m\x1b[1m\x1b[4mhttps://g9aerospace.in\x1b[0m
+\x1b[1m\x1b[32mRepository: \x1b[0m\x1b[1m\x1b[4mhttps://github.com/Eranodes/Monitor\x1b[0m
+\x1b[1m\x1b[32m-----------------------
 Please read the license and readme.
 Ensure your .env file is properly filled.
-Using ${port1} for serving the status page and ${port2} for querying the eranodes sites!
-For support, join our Discord server: https://discord.gg/jhju3spUbE
------------------------
-Server is running on port: ${port1} (${useHttps ? 'HTTPS' : 'HTTP'})
-Version: ${packageJson.version}`;
+Serving pages on port \x1b[0m\x1b[1m\x1b[33m${port1}\x1b[0m
+\x1b[1m\x1b[32mQuering websites on port \x1b[0m\x1b[1m\x1b[33m${port2}\x1b[0m
+\x1b[1m\x1b[32mFor support, join our Discord server: \x1b[0m\x1b[1m\x1b[4mhttps://discord.gg/jhju3spUbE\x1b[0m
+\x1b[1m\x1b[32m-----------------------
+Server is running on port: \x1b[0m\x1b[1m\x1b[33m${port1}\x1b[0m (\x1b[0m\x1b[1m\x1b[35m${useHttps ? 'HTTPS' : 'HTTP'}\x1b[0m\x1b[1m\x1b[32m)\x1b[0m
+\x1b[1m\x1b[32mVersion: \x1b[0m\x1b[1m\x1b[33m${packageJson.version}\x1b[0m`;
 
 // Function to check version from GitHub repository
 async function checkVersion() {
