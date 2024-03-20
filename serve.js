@@ -4,6 +4,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
+const axios = require('axios');
 const logger = require('./logger');
 const packageJson = require('./package.json');
 
@@ -41,6 +42,24 @@ For support, join our Discord server: https://discord.gg/jhju3spUbE
 Server is running on port: ${port1} (${useHttps ? 'HTTPS' : 'HTTP'})
 Version: ${packageJson.version}`;
 
+// Function to check version from GitHub repository
+async function checkVersion() {
+    try {
+        const response = await axios.get('https://raw.githubusercontent.com/Eranodes/Monitor/main/package.json');
+        const githubPackageJson = response.data;
+        const githubVersion = githubPackageJson.version;
+        const localVersion = packageJson.version;
+
+        if (githubVersion !== localVersion) {
+            logger.warn(`The local version (${localVersion}) is different from the version at the repository (${githubVersion}). Please consider updating.`);
+        } else {
+            logger.info(`Local version matches the version at the repository (${localVersion}).`);
+        }
+    } catch (error) {
+        logger.error(`Error checking version from the repository: ${error.message}`);
+    }
+}
+
 if (useHttps) {
   // Load SSL certificate and private key
   const privateKey = fs.readFileSync('ssl/private-key.pem', 'utf8');
@@ -56,6 +75,9 @@ if (useHttps) {
     // Run the status check script on startup
     const statusCheckScript = require('./status');
     statusCheckScript.checkStatusOnStartup();
+
+    // Check version from the repository
+    checkVersion();
   });
 } else {
   // Create an HTTP server
@@ -67,5 +89,8 @@ if (useHttps) {
     // Run the status check script on startup
     const statusCheckScript = require('./status');
     statusCheckScript.checkStatusOnStartup();
+
+    // Check version from the repository
+    checkVersion();
   });
 }
