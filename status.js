@@ -147,7 +147,7 @@ const websites = [
 
 const port = process.env.PORT_2 || 3001;
 
-logger.info(`Status check server is running on http://localhost:${port}`);
+logger.info(`Status check server is running on port ${port}`);
 // Check website status on startup
 checkStatusOnStartup();
 
