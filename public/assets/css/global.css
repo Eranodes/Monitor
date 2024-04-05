@@ -67,7 +67,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 body::-webkit-scrollbar-thumb:hover {
-    background-color: #acacac;
+    background-color: #3d3d3d;
+    
 }
 
 /* Responsive Styles */
