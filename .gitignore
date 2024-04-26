@@ -1,11 +1,4 @@
-.env
-sites.log
-public/assets/status.json
-.npm
-.github
 node_modules
 .vscode
-package-lock.json
-logs
-public/assets/data
-ssl
+.env
+backend/data
