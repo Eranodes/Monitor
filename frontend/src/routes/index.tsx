@@ -6,61 +6,98 @@ interface User {
   status: string;
 }
 
-export const useServerData = routeLoader$(async () => {
+// Define a reusable function to fetch data from an API endpoint
+async function fetchData(endpoint: string): Promise<User[]> {
   try {
-    const response = await fetch(`http://ryzen-9-eu.eranodes.xyz:56264/api/main`, {
+    const response = await fetch(`http://ryzen-9-eu.eranodes.xyz:56264/${endpoint}`, {
       headers: { Accept: 'application/json' },
     });
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.statusText}`);
+      throw new Error(`Failed to fetch data from ${endpoint}: ${response.statusText}`);
     }
     const contentType = response.headers.get('content-type');
     if (contentType && contentType.includes('application/json')) {
       return await response.json() as User[];
     } else {
-      throw new Error('Unexpected response type: not JSON');
+      throw new Error(`Unexpected response type from ${endpoint}: not JSON`);
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error(`Error fetching data from ${endpoint}:`, error);
+    throw error; // Rethrow the error for the component to handle
+  }
+}
+
+export const useServerData = routeLoader$(async () => {
+  try {
+    // Fetch data from all three endpoints concurrently
+    const [mainData, dashboardData, panelData] = await Promise.all([
+      fetchData('api/main'),
+      fetchData('api/dashboard'),
+      fetchData('api/panel')
+    ]);
+    // Combine and return the data
+    return {
+      main: mainData,
+      dashboard: dashboardData,
+      panel: panelData
+    };
+  } catch (error) {
+    console.error('Error loading server data:', error);
     throw error; // Rethrow the error for the component to handle
   }
 });
 
 export default component$(() => {
   const serverData = useServerData();
-  
-  // Create an array to hold status data for the last 30 days
-  const last30DaysData: { timestamp: string, status: string }[] = [];
-  
-  // Generate dates for the last 30 days
-  for (let i = 0; i < 30; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    const dateString = date.toISOString().split('T')[0]; // Get only the date part
-    const dayData = serverData.value.find(user => user.timestamp.startsWith(dateString));
-    last30DaysData.push(dayData || { timestamp: dateString, status: 'UNKNOWN' });
-  }
 
-  // Reverse the order of last30DaysData
-  last30DaysData.reverse();
+  // Process data for each site
+  const mainData = serverData.value.main || [];
+  const dashboardData = serverData.value.dashboard || [];
+  const panelData = serverData.value.panel || [];
 
   return (
-    <section class="section bright">
-      <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'row', padding: 2 }}>
-        {last30DaysData.map((dayData, index) => (
-          <li key={index} style={{ marginRight: '2px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div
-              style={{
-                width: '20px',
-                height: '100px',
-                backgroundColor: dayData.status === 'DOWN' ? 'red' : (dayData.status === 'UP' ? 'green' : 'grey'),
-                marginBottom: '2px',
-                marginRight: '5px',
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-    </section>
+    <div>
+      <section class="section bright">
+        <h2>Main Site Data</h2>
+        <ul class="bar-list">
+          {mainData.map((user, index) => (
+            <li key={index} class="bar-container">
+              <div class={`bar ${getStatusClass(user.status)}`} />
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="section bright">
+        <h2>Dashboard Site Data</h2>
+        <ul class="bar-list">
+          {dashboardData.map((user, index) => (
+            <li key={index} class="bar-container">
+              <div class={`bar ${getStatusClass(user.status)}`} />
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section class="section bright">
+        <h2>Panel Site Data</h2>
+        <ul class="bar-list">
+          {panelData.map((user, index) => (
+            <li key={index} class="bar-container">
+              <div class={`bar ${getStatusClass(user.status)}`} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 });
+
+function getStatusClass(status: string): string {
+  switch (status) {
+    case 'DOWN':
+      return 'bar-red';
+    case 'UP':
+      return 'bar-green';
+    default:
+      return 'bar-grey';
+  }
+}
